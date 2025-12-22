@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>113-1年高雄市護理人員甄選線上測驗</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <div id="app" class="max-w-3xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- 內容將由 JavaScript 動態渲染 -->
+    </div>
+
+    <script>
+        // 原始題庫數據
+        const rawQuestions = [
+            { id: 1, question: "下列關於預防醫學的策略分段和級，以下何者為正確的？", options: ["(A) 針對易感受期，藉由改變個人的易感受性即對於易感受基因治療，以達到避免危險因子發生作用的目的", "(B) 營養、運動、個人衛生、健康社區及城市的推動是第一段的預防", "(C) 預防接種或安全帽與安全帶的規定是初段一級的預防", "(D) 次段預防的重點是限制殘疾"], answer: "B" },
+            { id: 2, question: "疾病的自然史不包括哪一個？", options: ["(A) 易感階段", "(B) 傳播階段", "(C) 臨床前階段", "(D) 死亡"], answer: "B" },
+            { id: 3, question: "下列對於地方衛生行政機關的敘述何者不正確？", options: ["(A) 涵蓋在衛生福利部的組織架構下", "(B) 主要職責在於配合國家衛生政策，推動轄區內各項衛生醫療業務", "(C) 在鄉、鎮、區皆設有衛生所，執行基層衛生工作", "(D) 在偏遠地區設有衛生室，以提供當地民眾基本的衛生保健及醫療服務"], answer: "A" },
+            { id: 4, question: "流行病學家常將死亡率進行年齡標準化，其目的以下何者為非？", options: ["(A) 進行跨國比較", "(B) 得到一個綜合指標", "(C) 得到一個黃金標準(gold standard)", "(D) 去除年齡結構不同的干擾影響"], answer: "C" },
+            { id: 5, question: "依據食品安全衛生管理法之規定，醫療機構診治病人時發現有疑似食品中毒之情形，對當地主管機關應：", options: ["(A) 立即通報", "(B) 12 小時內通報", "(C) 24 小時內通報", "(D) 視情況決定是否通報"], answer: "C" },
+            { id: 6, question: "判讀一項檢查結果時必須知道該檢查的特異度（specificity）。何謂特異度（specificity）？", options: ["(A) 檢查結果為陽性的病人中，確實有該項疾病的機率", "(B) 沒有該項疾病的病人中，檢查結果為陰性的機率", "(C) 有該項疾病的病人中，檢查結果為陽性的機率", "(D) 檢查結果為陰性的病人中，確實沒有該項疾病的機率"], answer: "B" },
+            { id: 7, question: "渥太華憲章規劃健康促進之行動綱領包括下列哪一項？", options: ["(A) 建立健康的個人私領域政策", "(B) 發展個人技巧", "(C) 強化個人的行動", "(D) 創造一致性的環境"], answer: "B" },
+            { id: 8, question: "針對毒癮者全面進行 HIV 篩檢，而不對全台灣進行篩檢，主要的好處有", options: ["(A) 可提高陽性預測值", "(B) 這樣西方點墨法的敏感度好", "(C) 毒癮者的 AIDS 的發病率高", "(D) 因為毒癮者的 HBV 帶原率高"], answer: "A" },
+            { id: 9, question: "在建立一個高血壓和中風相關的世代追蹤研究之初發現，男性的高血壓盛行率為 50 每 1000 人，女性為 40 每 1000 人。因此，男性發生高血壓的危險性比女性高", options: ["(A) 不對，此非發生率測量", "(B) 不對，此非死亡率測量", "(C) 不對，世代效應無法分辨", "(D) 正確，男性的相對危險性是女性的 1.25 倍"], answer: "A" },
+            { id: 10, question: "下列有關台灣全民健保的特色，何者不正確？", options: ["(A) 全民強制納保", "(B) 以保險費為財源籌措的基礎", "(C) 多元保險人", "(D) 就醫給付範圍全民相同"], answer: "C" },
+            { id: 11, question: "代謝症候群的指標定義，不包含下列何者？", options: ["(A) 空腹血糖", "(B) 腰圍", "(C) 高密度脂蛋白膽固醇", "(D) 低密度脂蛋白膽固醇"], answer: "D" },
+            { id: 12, question: "有代謝症候群的人，其未來罹患慢性病的風險上升，這些慢性病包括以下何者：(1)第二型糖尿病(2)高血壓(3)心血管 疾病(4)腦中風？請選出正確選項？", options: ["(A) (1)+(2)+(3)+(4)", "(B) (1)+(2)+(3)", "(C) (1)+(2)", "(D) (1)+(3)"], answer: "A" },
+            { id: 13, question: "關於高血壓病人的居家血壓量測建議「722」原則，下列何者錯誤？", options: ["(A) 「7」是連續量測 7 天", "(B) 「2」是每日早上起床後和睡前各量一次", "(C) 「2」是每次量兩遍", "(D) 「2」是每次測量前休息 2 分鐘"], answer: "D" },
+            { id: 14, question: "下列何者是台灣青壯年（25-44 歲）男性最常見罹患的癌症？", options: ["(A) 口腔癌", "(B) 大腸癌", "(C) 肺癌", "(D) 攝護腺癌"], answer: "A" },
+            { id: 15, question: "有關代謝症候群中，血壓偏高的定義為下列何者？", options: ["(A) 收縮壓≧140mmHg 或舒張壓≧85mmHg", "(B) 收縮壓≧140mmHg 或舒張壓≧90mmHg", "(C) 收縮壓≧130mmHg 或舒張壓≧85mmHg", "(D) 收縮壓≧130mmHg 或舒張壓≧90mmHg"], answer: "C" },
+            { id: 16, question: "王先生打算最近一個月內要開始戒菸，且上網查詢住家附近哪裡有門診戒菸服務，此敘述屬於跨理論模式 （Transtheoretical Model, TTM）中的何種改變階段？", options: ["(A) 沉思期（contemplation）", "(B) 準備期（preparation）", "(C) 行動期（action）", "(D) 維持期（maintenance）"], answer: "B" },
+            { id: 17, question: "國民健康署設計台灣版「我的餐盤」口訣中，下列何者錯誤？", options: ["(A) 每天早上一杯奶", "(B) 每餐水果拳頭大", "(C) 菜比水果多一點", "(D) 豆魚蛋肉一掌心"], answer: "A" },
+            { id: 18, question: "關於電子煙品的敘述，下列何者正確？", options: ["(A) 毒物較傳統紙菸少，不含焦油，相對安全", "(B) 大部分仍含有尼古丁", "(C) 呼吸道的傷害較輕微", "(D) 可用於輔助戒菸"], answer: "B" },
+            { id: 19, question: "慢性腎臟病的分級，其定義指標包含下列何者？ (1)尿素氮(BUN) (2)肌酐酸(creatinine) (3)腎絲球過濾率(GFR) (4)蛋白 尿(proteinuria)", options: ["(A) (1)+(2)", "(B) (2)+(3)", "(C) (3)+(4)", "(D) (2)+(4)"], answer: "C" },
+            { id: 20, question: "世界衛生組織提出延緩老年人失能的關鍵，需要管理六大能力，不包含以下何者？", options: ["(A) 認知與憂鬱", "(B) 視力與聽力", "(C) 運動與社交", "(D) 營養與行動"], answer: "C" },
+            { id: 21, question: "下列有關於「M 痘(Mpox，又稱猴痘)」病毒的敘述，何者有誤？", options: ["(A) M 痘病毒屬於痘病毒科，屬人畜共通傳染病", "(B) 近期 M 痘疫情以男性為主", "(C) 猴痘的潛伏期約為 3-21 天，通常為 6-13 天", "(D) 目前國內使用的 Mpox 疫苗(JYNNEOS)之接種規劃為應接種兩劑，兩劑接種之期程應至少間隔 12 週"], answer: "D" },
+            { id: 22, question: "有關於結核病與結核菌的敘述，下列何者錯誤？", options: ["(A) 人類初次感染結核桿菌時，大約 95％的人會因自身的免疫力而未發病", "(B) 結核菌的分裂速度很慢，是一種好氧性的抗酸性細菌", "(C) 丙型干擾素釋放試驗(IGRA)是偵測血液中 T 細胞對於結核菌抗原的免疫反應", "(D) 同樣是培養陽性的病患，塗片陰性者的傳染性與塗片陽性者沒有明顯差異"], answer: "D" },
+            { id: 23, question: "關於四株結核分枝桿菌的藥物感受性試驗結果分類，何者錯誤？", options: ["(A) 菌株①號屬於多重抗藥性結核菌（MDR-TB）", "(B) 菌株②號屬於前驅廣泛抗藥性結核菌（Pre-XDR-TB）", "(C) 菌株③號屬於前驅廣泛抗藥性結核菌（Pre-XDR-TB）", "(D) 菌株④號屬於廣泛抗藥性結核病(XDR-TB)"], answer: "B" },
+            { id: 24, question: "下列有關於「漢他病毒」的敘述，何者有誤？", options: ["(A) 漢他病毒引起的臨床症狀主要可分為兩群：出血熱與肺症候群", "(B) 人類主要的感染途徑是經由呼吸道吸入鼠類分泌物之飛沫；另外，蜱、跳蚤、蚊子等會叮咬人的昆蟲也會傳播", "(C) 漢他病毒目前尚無疫苗可以預防。公共衛生上主要的預防方法為進行老鼠的防治", "(D) 「漢他病毒出血熱」的潛伏期一般是 12-16 天，但範圍可在 5-42 天"], answer: "B" },
+            { id: 25, question: "有關於阿米巴性痢疾的敘述，下列何者有誤？", options: ["(A) 感染此疾病的高危險族群包括：來自流行地區外籍勞工及移民、國人赴流行地區返國者、男男間性行為者", "(B) 痢疾阿米巴原蟲為本病之致病原", "(C) 常見症狀包括：慢性腹瀉、糞便中帶黏液及血絲、腹痛、裏急後重", "(D) 無症狀的痢疾阿米巴感染確定病例，不須給予藥物治療；對於疑似病例在未確認前，則不應投藥治療"], answer: "D" },
+            { id: 26, question: "下列有關於「日本腦炎」的敘述，何者錯誤？", options: ["(A) 感染日本腦炎病毒的病人大部分症狀明顯且嚴重；整體來說，感染者死亡率約為 70%-80%", "(B) 日本腦炎病毒之傳播須經由具有感染力的病媒蚊叮咬，人不會直接傳染給人", "(C) 在臺灣，主要的病媒蚊是三斑家蚊、環紋家蚊及白頭家蚊", "(D) 近三年來，我國採用的日本腦炎疫苗，屬於細胞培養製程之活性減毒嵌合型日本腦炎疫苗"], answer: "A" },
+            { id: 27, question: "下列有關於退伍軍人菌及退伍軍人病的敘述，何者有誤？", options: ["(A) 退伍軍人菌不易染色，為革蘭氏染色陰性桿菌", "(B) 退伍軍人菌的傳染窩主要在水溶液中", "(C) 退伍軍人菌亦可引起龐提亞克熱；龐提亞克熱的潛伏期更短，死亡率較退伍軍人病患者更高", "(D) 退伍軍人病患者可以 Levofloxacin 治療"], answer: "C" },
+            { id: 28, question: "有關「恙蟲病」的敘述，下列何者有誤？", options: ["(A) 其致病原為恙蟲病立克次體", "(B) 恙蟲病目前屬於第四類法定傳染病", "(C) 恙蟲病的病媒為恙蟎（Mite），恙蟎的動物宿主有囓齒類、哺乳類、鳥類等", "(D) 恙蟲病為我國的地方性流行傳染病，如果沒有經過適當治療，病患的死亡率約為 1%-2%"], answer: "D" },
+            { id: 30, question: "下列關於「鉤端螺旋體病」的敘述，何者有誤？", options: ["(A) 鉤端螺旋體菌屬為螺旋菌科", "(B) 洪水氾濫後，常見爆發性流行", "(C) 暴露後的潛伏期通常長達兩個月以上；感染者的臨床症狀不一", "(D) 人可經由食入或接觸受感染動物之尿液或組織污染的水、土壤、食物而感染"], answer: "C" },
+            { id: 31, question: "有關於登革病毒及登革熱的敘述，下列何者『正確』？①典型登革熱的潛伏期約為 3-14 天 ②典型的登革熱病程可區分為發燒期、危險期，與恢復期 ③目前尚無很有效的抗病毒藥物 ④在高雄市疫情期間，最主要的登革病毒傳播病媒蚊是白線斑蚊", options: ["(A) ① + ②", "(B) ① + ② + ③", "(C) ② + ③ + ④", "(D) ① + ② + ③ + ④"], answer: "B" },
+            { id: 32, question: "目前長期照顧十年計畫 2.0 中有關失智症照顧服務，下列敘述何者不適當？", options: ["(A) 團體家屋目前是專屬失智症個案的照顧模式", "(B) 強化失智症初級預防主要提供 40 歲以上失智症個案多元服務項目", "(C) 瑞智學堂、瑞智互助家庭提供失智症個案及其家屬家庭支持服務", "(D) 提供社區失智症個案管理機制為失智症共同照護中心的功能之一"], answer: "B" },
+            { id: 33, question: "為使住院病患於社區獲得持續性的照護，下列何者最適當？", options: ["(A) 提供高科技的醫療設備", "(B) 改善醫院環境", "(C) 臨床路徑的確實執行", "(D) 儘早執行出院準備服務"], answer: "D" },
+            { id: 34, question: "長期照護服務的最終目標為何？", options: ["(A) 治療病患，使其能儘早離開醫院，增加病床利用率", "(B) 病患一入院即開始進行出院準備服務，以增加案源", "(C) 協助家屬照顧長期護理的病患，減低家屬經濟負擔", "(D) 依病患失能程度提供所需的協助，並促進自我照護能力，維持優質生活，使其家庭生活正常化"], answer: "D" },
+            { id: 35, question: "長期照護的特性包括：①照護服務需求取決在其疾病程度②服務對象包括失能個案及其家人③需要整合多元資源與專 業醫療團隊④主要提供醫療照護⑤最終目標在提高個案生活品質", options: ["(A) ①②③", "(B) ③④⑤", "(C) ①②⑤", "(D) ②③⑤"], answer: "D" },
+            { id: 36, question: "長期照護體系是屬於我國健康照護體系中的？", options: ["(A) 疾病醫療", "(B) 後續照護", "(C) 預防保健", "(D) 緊急醫療照護"], answer: "B" },
+            { id: 37, question: "目前長期照顧十年計畫服務的對象，下列何者錯誤？", options: ["(A) 30 歲身心障礙身分生活自理能力正常的趙小姐", "(B) 80 歲獨居無法自行進食的吳女士", "(C) 56 歲中風併有半側麻痺的原住民王先生", "(D) 62 歲患有中度失智症的陳先生"], answer: "A" },
+            { id: 38, question: "80 歲諸奶奶因罹患失智症（dementia）住院，病情好轉後出院，返家後的居住環境敘述，下列何者錯誤？", options: ["(A) 原本熟悉的房間、空間應盡量保持原樣", "(B) 牆壁和地面加裝各種飾物，增加環境刺激", "(C) 浴室、走道設扶手", "(D) 在其經常活動的空間，應有提供人、時、地定向感的指示"], answer: "B" },
+            { id: 39, question: "某國老年人口比率為 15.51％，請問是屬於下列何種社會？", options: ["(A) 高齡化社會（aging society）", "(B) 高齡社會（aged society）", "(C) 超高齡社會（hyper-aged society）", "(D) 超級高齡社會（super-aged society）"], answer: "B" },
+            { id: 40, question: "中風的唐老先生因復健效果不彰而中斷復健，下列護理措施何者不適當？", options: ["(A) 了解個案及家屬的困難", "(B) 了解個案目前的身體功能", "(C) 與案家一同訂定具體可行的目標", "(D) 鼓勵家屬轉介個案去護理之家"], answer: "D" },
+            { id: 41, question: "有關衰弱（frailty）的敘述，下列何者最不適宜？", options: ["(A) 是介於健康與生病或失能前的一個階段，不是一種疾病", "(B) 通常是身體多處系統發生進展性功能下降", "(C) 是指身體健康無法恢復較好的功能狀態", "(D) 可以透過周全性評估提早發現"], answer: "C" },
+            { id: 42, question: "有關於自殺個案之治療，下列敘述何者有誤？", options: ["(A) 主要使用抗精神病藥物及/或抗憂鬱藥物治療其精神或情緒症狀", "(B) 住院之個案仍有可能嘗試自殺", "(C) 抗憂鬱藥物可能增加個案自殺之風險", "(D) 隨著憂鬱症狀的改善，個案自殺之風險一定不會增加"], answer: "D" },
+            { id: 43, question: "有關老人譫妄(Delirium) 敘述，何者有誤？", options: ["(A) 一般被認為是可逆的", "(B) 診斷譫妄可以使用混亂評估方法(CAM)", "(C) 主要症狀有注意力不集中、思想混難、意識狀態改變及記憶障礙等", "(D) Benzodiazepine 不是藥物治療譫妄的選項之一"], answer: "D" },
+            { id: 44, question: "全面性老年精神病學評估的目標為何？", options: ["(A) 為了提高診斷準確性", "(B) 指導並選擇如何恢復或保持長者之健康介入措施", "(C) 隨時監測臨床變化", "(D) 以上皆是"], answer: "D" },
+            { id: 45, question: "關於邊緣性人格疾患(borderline personality disorder)的描述，下列何者為非？", options: ["(A) 選擇性血清素再吸收抑制劑(SSRI)是邊緣性人格疾患的首選治療方式", "(B) 個案可能因為反覆性的自殺行為而出現在急診", "(C) 個別心理治療對個案會有幫忙", "(D) 個案可能會有不穩定的人際關係"], answer: "A" },
+            { id: 46, question: "關於自殺下列何者為非？", options: ["(A) 自殺目前是台灣十大死因", "(B) 一般而言男性自殺身亡的風險比女性高", "(C) 一般而言女性自殺未遂的風險比男性高", "(D) 在台灣，高齡者的自殺死亡率是不同年齡層中最高的"], answer: "A" },
+            { id: 47, question: "關於治療老年酒精戒斷反應相關描述，何者有誤？", options: ["(A) 長效型的 BZDs 為治療的選擇，劑量要比成年人高", "(B) 肝功能不佳的病人，則應考慮 BZDs 劑型及劑量", "(C) 起始劑量要依照病人使用酒精的劑量、年紀以及共病等因素來綜合考量", "(D) 一般可同時給予 thiamine (vitamine B1)"], answer: "A" },
+            { id: 48, question: "知情同意最能代表哪一個原則？", options: ["(A) 公平正義", "(B) 自主原則", "(C) 行善原則", "(D) 隱私維護"], answer: "B" },
+            { id: 49, question: "下列何者非自殺之危險因子？", options: ["(A) 年齡大於 45 歲", "(B) 失業", "(C) 精神官能症", "(D) 多次自殺嘗試"], answer: "C" },
+            { id: 50, question: "以精神醫療為例，在中老年醫學領域裡常見的心智障礙，簡稱『3D』現象，以下何者不是？", options: ["(A) 失智(Dementia)", "(B) 譫妄(Delirium)", "(C) 憂鬱(Depression)", "(D) 失能(Disability)"], answer: "D" },
+            { id: 51, question: "關於鋰鹽的敘述，下列何者錯誤？", options: ["(A) 中毒時，當濃度大於 2.0 mEq / L 中毒症狀：發燒、血壓下降、脈搏不規則、抽搐等", "(B) 鋰鹽預防躁症比預防鬱症的效果佳", "(C) 使用於治療維持期(maintenance )的鋰鹽濃度較躁期時所需的鋰鹽濃度低", "(D) 最常見副作用是少尿"], answer: "D" }
+        ];
+
+        // 隨機洗牌函數 (Fisher-Yates)
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // 當前測驗題庫（打亂後）
+        let questions = [];
+
+        function initQuizData() {
+            // 深拷貝原始題庫數據以避免影響原始定義
+            const cloned = JSON.parse(JSON.stringify(rawQuestions));
+
+            // 1. 打亂題目順序
+            shuffle(cloned);
+
+            // 2. 打亂每一題內部的選項順序
+            cloned.forEach(q => {
+                // 獲取正確答案的內容
+                const answerLetter = q.answer; // "A", "B", "C" 或 "D"
+                const originalIndex = answerLetter.charCodeAt(0) - 65;
+                const correctText = q.options[originalIndex];
+
+                // 洗牌選項
+                shuffle(q.options);
+
+                // 更新答案指引到新的正確字母
+                const newIndex = q.options.indexOf(correctText);
+                q.answer = String.fromCharCode(65 + newIndex);
+            });
+
+            questions = cloned;
+        }
+
+        let currentState = {
+            currentIdx: 0,
+            answers: {},
+            isFinished: false,
+            score: 0,
+            showGrid: false,
+            showDetail: false
+        };
+
+        function render() {
+            const app = document.getElementById('app');
+
+            if (currentState.isFinished) {
+                app.innerHTML = renderResult();
+                return;
+            }
+
+            const q = questions[currentState.currentIdx];
+            const progress = ((currentState.currentIdx + 1) / questions.length) * 100;
+            const selectedOpt = currentState.answers[q.id];
+
+            app.innerHTML = `
+                    <div class="bg-white rounded-t-xl shadow-sm p-6 border-b border-gray-100 sticky top-0 z-10">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-xl font-bold text-gray-800">113年高雄市護理甄選模擬考 (隨機出題模式)</h1>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">單選題</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full progress-bar" style="width: ${progress}%"></div>
+                        </div>
+                        <div class="flex justify-between items-end mt-2 text-sm">
+                            <span class="text-gray-500">第 ${currentState.currentIdx + 1} 題 / 共 ${questions.length} 題</span>
+                            <button onclick="toggleGrid()" class="text-blue-600 font-medium flex items-center gap-1">
+                                快速跳題
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-b-xl shadow-lg p-6 sm:p-10 min-h-[400px] flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-8 leading-snug">${q.question}</h2>
+                            <div class="space-y-4">
+                                ${q.options.map((opt, idx) => {
+                // 確保選項前綴與當前位置一致
+                const currentLabel = `(${String.fromCharCode(65 + idx)})`;
+                const displayOpt = opt.replace(/^\([A-D]\)\s*/, currentLabel + " ");
+                const isSelected = selectedOpt === displayOpt;
+
+                return `
+                                        <button onclick="selectOption('${displayOpt.replace(/'/g, "\\'")}')" class="w-full text-left p-4 rounded-xl border-2 flex items-start gap-3 transition-all ${isSelected ? 'border-blue-500 bg-blue-50 text-blue-900' : 'border-gray-200 hover:bg-gray-50 text-gray-700'}">
+                                            <div class="w-6 h-6 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${isSelected ? 'border-blue-500 bg-blue-500' : 'border-gray-300'}">
+                                                ${isSelected ? '<div class="w-2.5 h-2.5 bg-white rounded-full"></div>' : ''}
+                                            </div>
+                                            <span class="text-lg">${displayOpt}</span>
+                                        </button>
+                                    `;
+            }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-10 pt-6 border-t border-gray-100">
+                            <button onclick="prevQ()" ${currentState.currentIdx === 0 ? 'disabled' : ''} class="px-6 py-3 rounded-lg font-medium text-gray-600 disabled:text-gray-300">上一題</button>
+                            <button onclick="nextQ()" ${!selectedOpt ? 'disabled' : ''} class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold shadow-md disabled:bg-gray-300 disabled:shadow-none transition-all active:scale-95">
+                                ${currentState.currentIdx === questions.length - 1 ? '交卷計分' : '下一題'}
+                            </button>
+                        </div>
+                    </div>
+                    ${renderGridOverlay()}
+                `;
+        }
+
+        function renderResult() {
+            return `
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="bg-blue-600 px-6 py-8 text-center text-white">
+                            <h2 class="text-3xl font-bold">測驗結果</h2>
+                            <p class="mt-2 text-blue-100">113年高雄市政府衛生局所屬衛生所護理人員甄選</p>
+                        </div>
+                        <div class="px-6 py-8 text-center">
+                            <div class="mb-8">
+                                <span class="text-6xl font-bold text-gray-800">${currentState.score}</span>
+                                <span class="text-2xl text-gray-500"> / 100 分</span>
+                            </div>
+                            <div class="flex justify-center gap-4 mb-8">
+                                <button onclick="toggleDetail()" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium">${currentState.showDetail ? '隱藏詳情' : '查看錯題與詳解'}</button>
+                                <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium">重新測驗 (重新隨機)</button>
+                            </div>
+                            ${currentState.showDetail ? renderDetailList() : ''}
+                        </div>
+                    </div>
+                `;
+        }
+
+        function renderDetailList() {
+            return questions.map((q, idx) => {
+                const userAnsFull = currentState.answers[q.id];
+                const userLetter = userAnsFull ? userAnsFull.match(/\(([A-D])\)/)[1] : "未答";
+                const isCorrect = userLetter === q.answer;
+                return `
+                        <div class="text-left p-4 rounded-lg border-2 mb-4 ${isCorrect ? 'border-green-100 bg-green-50' : 'border-red-100 bg-red-50'}">
+                            <h4 class="font-bold text-gray-800 text-lg mb-2">${idx + 1}. ${q.question}</h4>
+                            <div class="text-sm space-y-1 text-gray-600 mb-2">
+                                ${q.options.map((o, optIdx) => {
+                    const label = `(${String.fromCharCode(65 + optIdx)})`;
+                    const cleanO = o.replace(/^\([A-D]\)\s*/, label + " ");
+                    const isCorrectOpt = label === `(${q.answer})`;
+                    return `<div class="${isCorrectOpt ? 'text-green-700 font-bold' : ''}">${cleanO}</div>`;
+                }).join('')}
+                            </div>
+                            <div class="text-sm font-medium">
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'}">您的答案: (${userLetter})</span>
+                                ${!isCorrect ? `<span class="text-green-700 ml-4 font-bold">正確答案: (${q.answer})</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+            }).join('');
+        }
+
+        function renderGridOverlay() {
+            if (!currentState.showGrid) return '';
+            return `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+                            <div class="p-4 border-b flex justify-between items-center">
+                                <h3 class="font-bold text-lg">題目導覽</h3>
+                                <button onclick="toggleGrid()" class="text-gray-500 font-bold text-xl">×</button>
+                            </div>
+                            <div class="p-4 overflow-y-auto grid grid-cols-5 sm:grid-cols-8 gap-2">
+                                ${questions.map((q, idx) => `
+                                    <button onclick="jumpTo(${idx})" class="p-2 rounded-lg border text-sm font-medium ${currentState.currentIdx === idx ? 'bg-blue-600 text-white' : (currentState.answers[q.id] ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white')}">
+                                        ${idx + 1}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+        }
+
+        // 事件與邏輯函數
+        window.selectOption = (opt) => {
+            currentState.answers[questions[currentState.currentIdx].id] = opt;
+            render();
+        };
+
+        window.nextQ = () => {
+            if (currentState.currentIdx < questions.length - 1) {
+                currentState.currentIdx++;
+                render();
+            } else {
+                calculateScore();
+            }
+        };
+
+        window.prevQ = () => {
+            if (currentState.currentIdx > 0) {
+                currentState.currentIdx--;
+                render();
+            }
+        };
+
+        window.jumpTo = (idx) => {
+            currentState.currentIdx = idx;
+            currentState.showGrid = false;
+            render();
+        };
+
+        window.toggleGrid = () => {
+            currentState.showGrid = !currentState.showGrid;
+            render();
+        };
+
+        window.toggleDetail = () => {
+            currentState.showDetail = !currentState.showDetail;
+            render();
+        };
+
+        window.restartQuiz = () => {
+            initQuizData();
+            currentState = {
+                currentIdx: 0,
+                answers: {},
+                isFinished: false,
+                score: 0,
+                showGrid: false,
+                showDetail: false
+            };
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        function calculateScore() {
+            let correctCount = 0;
+            questions.forEach(q => {
+                const userAns = currentState.answers[q.id];
+                if (userAns) {
+                    const match = userAns.match(/\(([A-D])\)/);
+                    if (match && match[1] === q.answer) correctCount++;
+                }
+            });
+            // 以實際題數計算配分
+            currentState.score = Math.round((correctCount / questions.length) * 100);
+            currentState.isFinished = true;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 初始化與執行
+        initQuizData();
+        render();
+    </script>
+</body>
+</html>

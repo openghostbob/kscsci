@@ -1,0 +1,1194 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>113-2年高雄市護理人員甄選線上測驗</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <div id="app" class="max-w-3xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- 內容將由 JavaScript 動態渲染 -->
+    </div>
+
+    <script>
+        const rawQuestions = [
+            {
+                id: 1,
+                question: "下列何者非長期照顧 2.0 服務的對象？",
+                options: [
+                    "(A) 失能身心障礙者",
+                    "(B) 50 歲以上失能原住民",
+                    "(C) 50 歲以上失智症患者",
+                    "(D) 65 歲以上失能老人"
+                ],
+                answer: "B"
+            },
+            {
+                id: 2,
+                question: "國民長期照護需要調查結果發現，失能者平均全家人口數為 4.58 人，是指",
+                options: [
+                    "(A) 平均 4-5 人就要照顧一個失能者",
+                    "(B) 失能人數佔全國 4.58%",
+                    "(C) 失能的人加上他的家人，佔我們全國人口總數的 4.58%",
+                    "(D) 以上皆非"
+                ],
+                answer: "A"
+            },
+            {
+                id: 3,
+                question: "長照 2.0 計畫，不只延續了長照 1.0 的在地老化原則與服務內容，還提供了更多元化的服務，下列何項是長照 2.0 新增的服務項目？",
+                options: [
+                    "(A) 復健服務",
+                    "(B) 輔具服務",
+                    "(C) 喘息服務",
+                    "(D) 居家醫療"
+                ],
+                answer: "D"
+            },
+            {
+                id: 4,
+                question: "人口老化是世界各國共同面臨的問題，其進程包含高齡化社會、高齡社會與超高齡社會等，台灣已於 107 年邁入高齡社會，是指 65 歲以上的老年人口達到多少以上？",
+                options: [
+                    "(A) 13%",
+                    "(B) 14%",
+                    "(C) 15%",
+                    "(D) 20%"
+                ],
+                answer: "B"
+            },
+            {
+                id: 5,
+                question: "行政院於 105 年 12 月核定長照十年計畫 2.0(簡稱長照 2.0)，並自 106 年 1 月起實施長照 2.0，長照 2.0 的目標何者為非？",
+                options: [
+                    "(A) 預防保健、活力老化",
+                    "(B) 減緩失能，促進長者健康福祉，提升老人生活品質",
+                    "(C) 提供多目標社區式支持服務",
+                    "(D) 醫院式臨終安寧照顧，減輕家屬照顧壓力"
+                ],
+                answer: "D"
+            },
+            {
+                id: 6,
+                question: "有關處理失智症患者伴隨的精神問題，如憂鬱、焦慮、激動、幻覺、妄想、睡覺週期障礙等，下列何者為非？",
+                options: [
+                    "(A) 可由非藥物治療及藥物治療兩方面著手，而藥物治療應優先於非藥物治療",
+                    "(B) 對照護者提供訓練，使其具有解決干擾行為的技巧，以及熟練使用相關技巧能力",
+                    "(C) 一般優先選擇副作用少的藥物，從低劑量給予",
+                    "(D) 尋找與標定可處理的促發因素，尤其必須尋求是否有未獲滿足的需求，例如疼痛、飢餓、便秘、尿滯留等等"
+                ],
+                answer: "A"
+            },
+            {
+                id: 7,
+                question: "近年失智人口攀升，響應世界衛生組織「失智症全球行動計畫」，打造 2025 失智友善台灣，下列何者敘述為非？",
+                options: [
+                    "(A) 台灣在 102 年推動國家失智症防治照護政策綱領 1.0，是全世界第 13 個制定國家級失智症政策的國家",
+                    "(B) 建構家庭照顧者服務支持網絡：設置失智症諮詢關懷專線、提供照顧訓練課程、家屬支持團體、喘息服務等",
+                    "(C) 目前國內失智症人口已達七成確診率且接受適當治療",
+                    "(D) 推廣失智友善社會運動，教育從小朋友做起"
+                ],
+                answer: "C"
+            },
+            {
+                id: 8,
+                question: "下列何者非長期照護的未來主要發展趨勢？",
+                options: [
+                    "(A) 居家照護",
+                    "(B) 社區照護",
+                    "(C) 機構照護",
+                    "(D) 喘息照護"
+                ],
+                answer: "C"
+            },
+            {
+                id: 9,
+                question: "預防失智者走失，下列何者為非？",
+                options: [
+                    "(A) 建議帶病患到熱鬧擁擠歡樂的場所，習慣吵鬧的環境",
+                    "(B) 不要讓患者單獨行動，外出需有照顧者同行",
+                    "(C) 讓失智長者穿顏色鮮豔好辨識的衣服，佩戴預防走失手鍊",
+                    "(D) 告知社區鄰居、里長、警員，家有失智長者，請大家多幫忙留意"
+                ],
+                answer: "A"
+            },
+            {
+                id: 10,
+                question: "下列有關褥瘡護理何者為非？",
+                options: [
+                    "(A) 預防褥瘡應減少組織壓力，照護者應每 2 小時協助病患翻身",
+                    "(B) 補充蛋白質和維他命有助於傷口復原",
+                    "(C) 長水泡時，需把水泡搓破掀開再進行傷口照護",
+                    "(D) 第三級和第四級褥瘡可用手術療法"
+                ],
+                answer: "C"
+            },
+            {
+                id: 11,
+                question: "下列有關鼻胃管照護何者為非？",
+                options: [
+                    "(A) 灌食前需反抽確定是否有未消化完食物在胃中",
+                    "(B) 如果完全從鼻胃管進食，不經口進食，就不需做口腔清潔",
+                    "(C) 灌食過程中，如果病患有不停咳嗽、嘔吐、臉色發青，必須立即停止灌食，將鼻胃管放低，讓胃引流物自然引流出來，密切觀察是否需送醫",
+                    "(D) 灌食後，需灌入 30~50c.c.溫開水，防止鼻胃管阻塞或食物殘渣留在管壁"
+                ],
+                answer: "B"
+            },
+            {
+                id: 12,
+                question: "內政部老人狀況調查報告中指出，65 歲以上老年人希望的理想居住方式，以下列何者比例最高？",
+                options: [
+                    "(A) 護理之家或老人安養機構",
+                    "(B) 獨居",
+                    "(C) 與子女同住",
+                    "(D) 與親戚朋友同住"
+                ],
+                answer: "C"
+            },
+            {
+                id: 13,
+                question: "有關失能個案常見的護理問題，何者為是？ 1.跌倒 2.憂鬱 3.大小便失禁 4.頭暈",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 1+2+4",
+                    "(C) 1+3+4",
+                    "(D) 2+3+4"
+                ],
+                answer: "A"
+            },
+            {
+                id: 14,
+                question: "下列有關主要照顧者的需求，何者為是？ 1.醫療照護技術支持 2.心理社會支持 3.家務服務 4.請假或放棄工作",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 1+2+4",
+                    "(C) 1+3+4",
+                    "(D) 2+3+4"
+                ],
+                answer: "A"
+            },
+            {
+                id: 15,
+                question: "造成失智症最常見的二種病因，何者為是？ 1.阿茲海默氏症 2.額顳葉失智症 3.血管性失智症 4.常壓性水腦症",
+                options: [
+                    "(A) 1+2",
+                    "(B) 1+3",
+                    "(C) 2+3",
+                    "(D) 1+4"
+                ],
+                answer: "B"
+            },
+            {
+                id: 16,
+                question: "失智症常見的異常精神行為症狀，何者為是？ 1.遊走 2.妄想 3.偷竊行為 4.冷漠",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 1+2+4",
+                    "(C) 1+3+4",
+                    "(D) 2+3+4"
+                ],
+                answer: "B"
+            },
+            {
+                id: 17,
+                question: "以下有關自殺者生前就醫的敘述，何者正確？",
+                options: [
+                    "(A) 自殺者生前曾就醫比例不高",
+                    "(B) 自殺者生前曾就醫門診類別以精神科為主",
+                    "(C) 自殺者最後一次就診處以在醫院門診為最多",
+                    "(D) 自殺通報關懷系統發現國內自殺通報單位僅一成來自醫療院所"
+                ],
+                answer: "C"
+            },
+            {
+                id: 18,
+                question: "以下有關自殺防範的敘述，何者正確？",
+                options: [
+                    "(A) 絕大多數的自殺事件是可以預防的",
+                    "(B) 還好自殺事件很少為周遭帶來嚴重的影響",
+                    "(C) 自殺是老年人的重要死因，排名前三名",
+                    "(D) 自殺是一個相對單純問題"
+                ],
+                answer: "A"
+            },
+            {
+                id: 19,
+                question: "以下有關自殺危險性評估的敘述，何者正確？",
+                options: [
+                    "(A) 自殺常常是臨時起意，較少先規劃",
+                    "(B) 個案有自殺的想法就是高風險",
+                    "(C) 自殺計畫具體性越高，自殺風險越低",
+                    "(D) 常常自殺未果的個案屬於高風險"
+                ],
+                answer: "D"
+            },
+            {
+                id: 20,
+                question: "以下有關老年人自殺的敘述，何者正確？",
+                options: [
+                    "(A) 一般來說老年人自殺致命性比年輕人高",
+                    "(B) 一般來說老年女性較男性容易用強烈且致命方式",
+                    "(C) 一般來說老年男性比女性常有自殺意念及企圖",
+                    "(D) 一般來說老年男性比女性較常以服食過量藥物自殺"
+                ],
+                answer: "A"
+            },
+            {
+                id: 21,
+                question: "以下有關電子煙的敘述，何者正確？",
+                options: [
+                    "(A) 可以幫助戒菸",
+                    "(B) 比傳統紙菸安全又不會成癮",
+                    "(C) 只要不含尼古丁，就不會有危害",
+                    "(D) 吸電子煙會導致癌症"
+                ],
+                answer: "D"
+            },
+            {
+                id: 22,
+                question: "以下有關菸品危害及戒菸好處的敘述，何者正確？",
+                options: [
+                    "(A) 減少壽命至少 20 年",
+                    "(B) 增加罹患糖尿病的機會",
+                    "(C) 戒菸馬上就能解除危害",
+                    "(D) 戒菸 15 年者罹患肺癌的風險與未吸菸者相同"
+                ],
+                answer: "B"
+            },
+            {
+                id: 23,
+                question: "以下有關避免產生吸菸念頭的方法，何者正確？",
+                options: [
+                    "(A) 多喝咖啡提神",
+                    "(B) 別讓手或嘴閒著",
+                    "(C) 多休息，不要太忙",
+                    "(D) 把菸放在顯眼的地方，提醒自己正在戒菸"
+                ],
+                answer: "B"
+            },
+            {
+                id: 24,
+                question: "【複選題】以下有關精神衛生法之精神醫療照護業務的敘述，何者正確？",
+                options: [
+                    "(A) 精神醫療機構診治病人或於病人住院時，應向其本人或其保護人說明病情、治療方針、預後情形、住院理由及其應享有之權利等有關事項",
+                    "(B) 精神照護機構為保護病人安全，經告知病人後，得限制其活動之區域範圍",
+                    "(C) 精神醫療機構為醫療之目的或為防範緊急暴力意外、自殺或自傷之事件，得拘束病人身體或限制行動自由，得以戒具或其他不正當方式為之",
+                    "(D) 直轄市、縣(市)主管機關應於轄區內建置四十八小時緊急精神醫療處置機制，協助處理病人護送就醫及緊急安置之醫療事務"
+                ],
+                answer: "A,B"
+            },
+            {
+                id: 25,
+                question: "以下有關失眠的敘述，何者正確？",
+                options: [
+                    "(A) 只要是睡不好持續 3 個月以上就是失眠",
+                    "(B) 大多數失眠者需要接受多頻道睡眠生理檢查，了解原因",
+                    "(C) 導致失眠開始的事件多是令人憂鬱、焦慮的事件，也可能是令人喜悅的事件",
+                    "(D) 若有失眠問題，白天盡可能多找休息，如此可以償還睡眠債，改善失眠"
+                ],
+                answer: "C"
+            },
+            {
+                id: 26,
+                question: "以下有關成癮疾病防治的敘述，何者正確？",
+                options: [
+                    "(A) 屬於身體及心理問題，與社會無關",
+                    "(B) 屢次復發之海洛英成癮個案最好還是關進監獄",
+                    "(C) 酒精所佔的失能年數高於非法藥物",
+                    "(D) 容易形成網路成癮的高危險群包括憂鬱症、焦慮症及高自尊人格"
+                ],
+                answer: "C"
+            },
+            {
+                id: 27,
+                question: "以下何者比較不屬於自殺危險因子？",
+                options: [
+                    "(A) 早年創傷經驗",
+                    "(B) 缺乏社交活動",
+                    "(C) 容易負面思考",
+                    "(D) 長久失眠問題"
+                ],
+                answer: "D"
+            },
+            {
+                id: 28,
+                question: "以下有關自殺和精神疾病的敘述，何者正確？",
+                options: [
+                    "(A) 絕大多數的自殺者皆有可以被診斷出來的精神疾病",
+                    "(B) 以危險性排列，思覺失調症最高",
+                    "(C) 喝酒容易導致自殺傾向",
+                    "(D) 憂鬱症目前已經有相當多的治療方式，也很容易被診斷出來"
+                ],
+                answer: "A"
+            },
+            {
+                id: 29,
+                question: "思覺失調症患者在以下情形，會有較高自殺身亡的可能性： 1.在疾病晚期，當病人處於混亂和/或困惑時 2.在恢復早期，當看起來症狀有所進步但病人內心感到易受傷害時 3.在復發早期，當病人認為他們本已克服了疾病卻又再復發時 4.出院的短時間內",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 1+3+4",
+                    "(C) 2+3+4",
+                    "(D) 1+2+3+4"
+                ],
+                answer: "C"
+            },
+            {
+                id: 30,
+                question: "以下有關戒菸協助，何者正確？ 1.尼古丁成癮度 4 分以上最好要找戒菸門診，可以增加成功率 2.尼古丁成癮度 3 分以下可以找戒菸專線 3.第一次戒菸就失敗，一般再戒就很難成功，所以最好找戒菸門診 4.戒菸後一定會體重暴增，一般至少增加 5 公斤以上",
+                options: [
+                    "(A) 1+2",
+                    "(B) 1+2+3",
+                    "(C) 1+2+3+4",
+                    "(D) 1+2+4"
+                ],
+                answer: "A"
+            },
+            {
+                id: 31,
+                question: "以下有關拒菸技巧-想吸菸的方法，何者正確？ 1.趕快吃一點高熱量東西 2.拿出菸盒提醒自己不要吸菸 3.告訴自己菸癮很快就會過去 4.運動",
+                options: [
+                    "(A) 2+3+4",
+                    "(B) 1+3+4",
+                    "(C) 3+4",
+                    "(D) 1+2+3+4"
+                ],
+                answer: "C"
+            },
+            {
+                id: 32,
+                question: "以下有關得強制社區治療的之嚴重病人，何者正確？ 1.經專科醫師診斷有接受社區治療之必要，但拒絕接受 2.經指定專科醫師診斷，有施予社區治療之必要，但拒絕接受 3.經指定專科醫師診斷，有施予社區治療之必要，但無法表達 4.雖遵醫囑但其病情不穩或生活功能有退化之虞",
+                options: [
+                    "(A) 1+2+3+4",
+                    "(B) 2+3+4",
+                    "(C) 1+2+3",
+                    "(D) 1+4"
+                ],
+                answer: "C"
+            },
+            {
+                id: 33,
+                question: "醫護人員之執業執照應向何者申請？",
+                options: [
+                    "(A) 衛生福利部",
+                    "(B) 考試院",
+                    "(C) 內政部",
+                    "(D) 縣市衛生局"
+                ],
+                answer: "D"
+            },
+            {
+                id: 34,
+                question: "醫師診治病人或檢驗屍體時，發現傳染病或疑似傳染病時，其為第一類或第二類傳染病，應於多久內完成向主管機關通報？",
+                options: [
+                    "(A) 8 小時內",
+                    "(B) 12 小時內",
+                    "(C) 24 小時內",
+                    "(D) 72 小時內"
+                ],
+                answer: "C"
+            },
+            {
+                id: 35,
+                question: "依醫療法施行細則規定，下列何者不屬於「特殊病床」？",
+                options: [
+                    "(A) 加護病房之病床",
+                    "(B) 嬰兒床",
+                    "(C) 洗腎治療床",
+                    "(D) 精神科病床"
+                ],
+                answer: "D"
+            },
+            {
+                id: 36,
+                question: "衛生福利部食品藥物管理署係由下列何者於民國 98 年整合而成？",
+                options: [
+                    "(A) 行政院衛生署食品衛生處、藥政處、中醫藥委員會、管制藥品管理局",
+                    "(B) 行政院衛生署食品衛生處、藥政處、藥物食品檢驗局、管制藥品管理局",
+                    "(C) 行政院衛生署藥政處、藥物食品檢驗局、中醫藥管理局、管制藥品管理局",
+                    "(D) 行政院衛生署食品衛生處、藥政處、藥物食品檢驗局、中醫藥委員會"
+                ],
+                answer: "B"
+            },
+            {
+                id: 37,
+                question: "藥事法所稱「藥事」，係指下列何者？",
+                options: [
+                    "(A) 藥物、藥商、藥局及其有關事項",
+                    "(B) 藥師、藥商、藥局及其有關事項",
+                    "(C) 藥廠、藥師、藥局及其有關事項",
+                    "(D) 藥品、管制藥品、醫療器材及其有關事項"
+                ],
+                answer: "A"
+            },
+            {
+                id: 38,
+                question: "某藥師執業登記於高雄市甲藥局，應友人之邀於臺南市為產品代言，經臺南市政府衛生局查獲代言虛偽不真實，則下列處置何者正確？",
+                options: [
+                    "(A) 高雄市藥師公會得將該藥師移付懲戒",
+                    "(B) 臺南市藥師公會得廢止該藥師公會會員證明",
+                    "(C) 臺南市政府得廢止該藥師執業執照",
+                    "(D) 衛生福利部得處該藥師罰鍰處分"
+                ],
+                answer: "A"
+            },
+            {
+                id: 39,
+                question: "有關醫師處方應記明事項及藥劑交付應註明事項等規定，係訂定於下列何項法律中？",
+                options: [
+                    "(A) 醫療法",
+                    "(B) 醫師法",
+                    "(C) 藥事法",
+                    "(D) 全民健康保險法"
+                ],
+                answer: "B"
+            },
+            {
+                id: 40,
+                question: "依據食品良好衛生規範準則之規定，持有廚師證書的餐飲烹調從業人員應在證書有效期間內，每年接受主管機關或其認可相關機構辦理之衛生講習至少幾小時？",
+                options: [
+                    "(A) 4",
+                    "(B) 8",
+                    "(C) 12",
+                    "(D) 16"
+                ],
+                answer: "B"
+            },
+            {
+                id: 41,
+                question: "下列何種特性不適宜作為衛生指標菌？",
+                options: [
+                    "(A) 耐熱性高",
+                    "(B) 營養需求簡單",
+                    "(C) 存在人體腸道中",
+                    "(D) 容易檢測"
+                ],
+                answer: "A"
+            },
+            {
+                id: 42,
+                question: "食品安全性之評估中，有關急性毒性試驗之敘述，下列何者正確？",
+                options: [
+                    "(A) 測試單一最大劑量餵食之影響",
+                    "(B) 測試結果無法計算半致死劑量",
+                    "(C) 以單一性別之動物進行試驗",
+                    "(D) 犧牲動物前至少需觀察 72 小時"
+                ],
+                answer: "A"
+            },
+            {
+                id: 43,
+                question: "有關過氧化氫在食品上之使用，下列何者正確？",
+                options: [
+                    "(A) 為我國禁用之防腐劑",
+                    "(B) 可使用於麵粉及其製品等食品中",
+                    "(C) 可使用於魚肉煉製品中",
+                    "(D) 食品中允許殘留量為 0.05%"
+                ],
+                answer: "C"
+            },
+            {
+                id: 44,
+                question: "下列何種微生物污染食品後，以自來水沖洗較能有效防止食物中毒的發生？",
+                options: [
+                    "(A) 腸炎弧菌",
+                    "(B) 李斯特菌",
+                    "(C) 肉毒桿菌",
+                    "(D) 產氣莢膜桿菌"
+                ],
+                answer: "A"
+            },
+            {
+                id: 45,
+                question: "下列何者屬嚴重藥物不良反應通報辦法所稱之嚴重藥物不良反應？ 1.全身出疹子 2.造成永久性殘疾 3.胎嬰兒先天性畸形 4.死亡",
+                options: [
+                    "(A) 1+2",
+                    "(B) 1+2+3",
+                    "(C) 1+4",
+                    "(D) 2+3+4"
+                ],
+                answer: "D"
+            },
+            {
+                id: 46,
+                question: "依西藥藥品優良製造規範之規定，為使因交叉污染所引起之嚴重醫療傷害的風險降到最低，哪些藥品應有專用且自足圍堵的生產設施？ 1.青黴素 2.疫苗 3.可待因 4.免疫球蛋白",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 1+3+4",
+                    "(C) 1+2+4",
+                    "(D) 2+3+4"
+                ],
+                answer: "C"
+            },
+            {
+                id: 47,
+                question: "社區藥局購買硝甲西泮(Nimetazepam)錠劑調劑時，依法應辦理哪些事項？ 1.申請管制藥品登記證 2.申請管制藥品使用執照 3.依醫師開立之管制藥品專用處方箋調劑 4.應設置簿冊詳實登載收支結存情形",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 2+3+4",
+                    "(C) 1+3+4",
+                    "(D) 1+2+4"
+                ],
+                answer: "C"
+            },
+            {
+                id: 48,
+                question: "依全民健康保險法之規定，下列哪些項目不給付？ 1.成藥 2.指示用藥 3.藥癮治療 4.預防接種",
+                options: [
+                    "(A) 1",
+                    "(B) 2+3",
+                    "(C) 2+3+4",
+                    "(D) 1+2+3+4"
+                ],
+                answer: "D"
+            },
+            {
+                id: 49,
+                question: "請問麻疹的傳染途徑為何？",
+                options: [
+                    "(A) 與禽鳥近距離接觸傳染",
+                    "(B) 經由蚊蟲叮咬傳染",
+                    "(C) 與病人近距離接觸傳染",
+                    "(D) 被動物咬傷傳染"
+                ],
+                answer: "C"
+            },
+            {
+                id: 50,
+                question: "請問有關狂犬病，下列何者錯誤？",
+                options: [
+                    "(A) 依據傳染病防治法，狂犬病為第一類傳染病",
+                    "(B) 人在動物咬傷後，及時接受狂犬病暴露後預防接種，並無法降低發病的風險",
+                    "(C) 我國自 50 年後不再有動物病例，但行政院農業委員會於 102 年 7 月起確認國內野生動物感染狂犬病毒，目前國內疫情侷限於鼬獾、白鼻心等野生動物",
+                    "(D) 狂犬病由狂犬病病毒引起的一種急性病毒性腦脊髓炎，一旦發病後，致死率幾乎達 100％"
+                ],
+                answer: "B"
+            },
+            {
+                id: 51,
+                question: "依據傳染病防治法相關規定，登革熱為第二類法定傳染病，醫療機構及醫師發現疑似病例時，應於多少時間內通報當地衛生主管機關？",
+                options: [
+                    "(A) 24 小時",
+                    "(B) 3 天",
+                    "(C) 1 週",
+                    "(D) 1 個月"
+                ],
+                answer: "A"
+            },
+            {
+                id: 52,
+                question: "腸病毒 A71 型的致病力較高，下列何者並非感染後常出現的症狀？",
+                options: [
+                    "(A) 咳嗽、頭痛、肌肉痠痛、疲倦、流鼻涕、喉嚨痛",
+                    "(B) 發燒時間較長：常超過 3 天，體溫可超過 39℃",
+                    "(C) 容易有中樞神經併發症：如嗜睡、持續嘔吐、肌躍型抽搐（類似驚嚇的全身性肢體抽動）、意識不清等",
+                    "(D) 幾乎都有手足口症狀：在手部、足部、口腔內等部位出現針頭大小紅點的疹子（水泡）"
+                ],
+                answer: "A"
+            },
+            {
+                id: 53,
+                question: "請問我國目前麻疹腮腺炎德國麻疹混合疫苗的接種時程為何？",
+                options: [
+                    "(A) 出生滿 12 個月時接種一劑，滿 5 歲至入國小前再接種一劑",
+                    "(B) 出生滿 2、4、6 個月各接種一劑",
+                    "(C) 出生滿 15 個月接種一劑，間隔 12 個月再接種一劑",
+                    "(D) 出生滿 6 個月以上，每年接種一劑"
+                ],
+                answer: "A"
+            },
+            {
+                id: 54,
+                question: "請問下列病毒的感染，目前何者尚無疫苗可供使用？",
+                options: [
+                    "(A) 腸病毒 A71 型",
+                    "(B) 人類乳突病毒",
+                    "(C) 狂犬病病毒",
+                    "(D) 日本腦炎病毒"
+                ],
+                answer: "A"
+            },
+            {
+                id: 55,
+                question: "出疹且發燒(耳溫或肛溫)高於 38℃，並具有下列哪一項，即符合麻疹的通報條件？",
+                options: [
+                    "(A) 噁心/嘔吐",
+                    "(B) 有關節炎、關節痛、急性頸部或頭部淋巴腺腫大等症狀之一者",
+                    "(C) 咳嗽、流鼻水或結膜炎(畏光、流淚水或眼睛發紅)三種症狀中的一種",
+                    "(D) 急性肝炎症狀或肝功能異常(ALT≧100 IU/L)"
+                ],
+                answer: "C"
+            },
+            {
+                id: 56,
+                question: "我國預防接種受害救濟給付案最多的疫苗為",
+                options: [
+                    "(A) B 型肝炎疫苗",
+                    "(B) 日本腦炎疫苗",
+                    "(C) 卡介苗",
+                    "(D) 水痘疫苗"
+                ],
+                answer: "C"
+            },
+            {
+                id: 57,
+                question: "請問卡介苗的使用，是為了針對下列哪一種傳染病產生抵抗力？",
+                options: [
+                    "(A) 嚴重急性呼吸道症候群",
+                    "(B) 結核病",
+                    "(C) 茲卡病毒感染症",
+                    "(D) 伊波拉病毒感染"
+                ],
+                answer: "B"
+            },
+            {
+                id: 58,
+                question: "依據我國現行兒童預防接種時程，出生後 24 小時內應儘速接種的疫苗為",
+                options: [
+                    "(A) B 型肝炎疫苗",
+                    "(B) 卡介苗",
+                    "(C) 白喉破傷風非細胞性百日咳、b 型嗜血桿菌及不活化小兒麻痺五合一疫苗",
+                    "(D) 13 價結合型肺炎鏈球菌疫苗"
+                ],
+                answer: "A"
+            },
+            {
+                id: 59,
+                question: "下列我國法定傳染病，在 106 年確定病例人數最多者為何？",
+                options: [
+                    "(A) 登革熱",
+                    "(B) 阿米巴性痢疾",
+                    "(C) 急性病毒性 A 型肝炎",
+                    "(D) 結核病"
+                ],
+                answer: "D"
+            },
+            {
+                id: 60,
+                question: "傳染病防治法之主管機關，在中央為哪一個部會署？",
+                options: [
+                    "(A) 行政院環境保護署",
+                    "(B) 衛生福利部",
+                    "(C) 國家發展委員會",
+                    "(D) 法務部"
+                ],
+                answer: "B"
+            },
+            {
+                id: 61,
+                question: "登革熱的傳染媒介是何種昆蟲？ 1.蟑螂 2.埃及斑蚊 3.三斑家蚊 4.白線斑蚊",
+                options: [
+                    "(A) 1+2",
+                    "(B) 2+3",
+                    "(C) 2+4",
+                    "(D) 3+4"
+                ],
+                answer: "C"
+            },
+            {
+                id: 62,
+                question: "有關中東呼吸症候群冠狀病毒感染症(MERS-CoV)，下列哪些敘述是正確的？ 1.基因結構與 SARS-CoV 類似 2.今年曾在阿曼、沙烏地等國造成疫情 3.為人畜共通傳染病 4.我國目前將沙烏地列為第三級:警告(Warning)",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 2+3+4",
+                    "(C) 1+3+4",
+                    "(D) 1+2+4"
+                ],
+                answer: "A"
+            },
+            {
+                id: 63,
+                question: "下列何者為登革熱常見的症狀？ 1.突發發燒≧38℃ 2.頭痛/後眼窩痛/肌肉痛/關節痛/骨頭痛 3.白血球減少 4.白血球增加 5.紅血球減少 6.紅血球增加",
+                options: [
+                    "(A) 1+2+3+5",
+                    "(B) 1+2+3+6",
+                    "(C) 1+2+5",
+                    "(D) 1+2+3"
+                ],
+                answer: "D"
+            },
+            {
+                id: 64,
+                question: "有關淋病，下列哪些敘述是正確的？ 1.治癒後不會再被感染 2.可能造成不孕 3.男性會有尿道化膿及刺痛感 4.病患多為 15~59 歲，女性症狀較不明顯",
+                options: [
+                    "(A) 1+2+3",
+                    "(B) 2+3+4",
+                    "(C) 1+3+4",
+                    "(D) 1+2+4"
+                ],
+                answer: "B"
+            },
+            {
+                id: 65,
+                question: "依人口中推估(2010 至 2065 年)，以下何者為非？",
+                options: [
+                    "(A) 15-64 歲青壯年人口佔比已於 2012 年達最高峰後逐年減少",
+                    "(B) 65 歲以上人口佔總人口比率由 2010 年 11%至 2017 年增加為 14%，即達到國際慣例所稱的超高齡社會",
+                    "(C) 預估 2040 年老年人口佔比將大於 30%，同時青壯年人口佔比將小於 60%",
+                    "(D) 按照中推估值，台灣人口出生與死亡趨勢圖的交叉點在 2019 年"
+                ],
+                answer: "B"
+            },
+            {
+                id: 66,
+                question: "健康城市的營造，可以遵循以下哪些原則？",
+                options: [
+                    "(A) 強化社區行動",
+                    "(B) 創造支持性環境",
+                    "(C) 建立健康公共政策",
+                    "(D) 以上皆是"
+                ],
+                answer: "D"
+            },
+            {
+                id: 67,
+                question: "關於烏腳病與砷暴露之研究，以下何者為非？",
+                options: [
+                    "(A) 砷可能非直接致癌物，但會引起原發性皮膚癌轉移",
+                    "(B) 砷會和 DNA 聚合，影響 DNA 修護",
+                    "(C) 西南沿海地區的烏腳病可能是自來水中含砷而引起",
+                    "(D) 砷能引起角化病，特別是手掌和腳板"
+                ],
+                answer: "C"
+            },
+            {
+                id: 68,
+                question: "下列對於 2025 年衛生政策白皮書的敘述，何者不正確？",
+                options: [
+                    "(A) 主要時代背景是 2013 年衛政與社政組織整併成立衛生福利部",
+                    "(B) 因應社會結構改變、人口老化以及長照需求",
+                    "(C) 建立完善的社會福利支持系統亦是重要方向",
+                    "(D) 重點在研訂各項衛生指標"
+                ],
+                answer: "D"
+            },
+            {
+                id: 69,
+                question: "對於登革熱(Dengue Fever)的敘述，下列何項有誤？",
+                options: [
+                    "(A) 屬於第二類法定傳染病，必須在 24 小時內通報",
+                    "(B) 出血性登革熱常發生在第二次感染且為不同型別",
+                    "(C) 出血性登革熱會發生在人與人之間傳染",
+                    "(D) 目前沒有有效的疫苗"
+                ],
+                answer: "C"
+            },
+            {
+                id: 70,
+                question: "關於登革熱快篩結果：NS1 Ag(陽性)，IgM(陰性)，IgG(陰性)，此個案如何？",
+                options: [
+                    "(A) 登革熱初次感染及處於恢復期中",
+                    "(B) 登革熱再次感染及處於恢復期中",
+                    "(C) 登革熱初次感染及處於急性期中",
+                    "(D) 登革熱再次感染及處於急性期中"
+                ],
+                answer: "C"
+            },
+            {
+                id: 71,
+                question: "關於橫斷面研究(Cross-sectional Study)，下列何者為錯？",
+                options: [
+                    "(A) 可以回答因果關係(Causal Effect)",
+                    "(B) 包含個人暴露資料",
+                    "(C) 暴露與疾病時間點之前後關係難以區分",
+                    "(D) 是觀察型研究(Observational Study)之一"
+                ],
+                answer: "A"
+            },
+            {
+                id: 72,
+                question: "某研究於 1975 年收集飲酒量調查，並在 2001 至 2005 年調查癌症發生情形，此為何種研究？",
+                options: [
+                    "(A) 橫斷性研究",
+                    "(B) 病例對照研究",
+                    "(C) 世代研究",
+                    "(D) 實驗性研究"
+                ],
+                answer: "C"
+            },
+            {
+                id: 73,
+                question: "下列有關健康照護體系的敘述，何者不正確？",
+                options: [
+                    "(A) 健康照護體系主要目標為提升群體健康",
+                    "(B) 有健康需求的民眾不屬於健康照護體系的重要角色",
+                    "(C) 健康照護體系的重點工作會隨著社會變遷而調整",
+                    "(D) 篩檢為健康照護體系中所提供的服務"
+                ],
+                answer: "B"
+            },
+            {
+                id: 74,
+                question: "下列對於地方衛生行政機關的敘述何者不正確？",
+                options: [
+                    "(A) 涵蓋在衛生福利部的組織架構下",
+                    "(B) 主要職責在於配合國家衛生政策，推動轄區內各項衛生醫療業務",
+                    "(C) 在鄉、鎮、區皆設有衛生所，執行基層衛生工作",
+                    "(D) 在偏遠地區設有衛生室，以提供當地民眾基本的衛生保健及醫療服務"
+                ],
+                answer: "A"
+            },
+            {
+                id: 75,
+                question: "下列何者為社區健康營造的第一步？",
+                options: [
+                    "(A) 強化社區組織",
+                    "(B) 找出社區健康議題",
+                    "(C) 喚起共同參與興趣",
+                    "(D) 凝聚社區共識"
+                ],
+                answer: "B"
+            },
+            {
+                id: 76,
+                question: "常態分佈平均值 8kg，標準差 2kg，則體重超過 10kg 的小朋友約佔多少？",
+                options: [
+                    "(A) 10%",
+                    "(B) 95%",
+                    "(C) 68%",
+                    "(D) 16%"
+                ],
+                answer: "D"
+            },
+            {
+                id: 77,
+                question: "關於疾病自然史與預防醫學的核心概念，以下何者正確？ 1.包含易感受期、臨床前期、臨床期、殘障期、死亡 4.結核病短程直接觀察治療法是最末段預防",
+                options: [
+                    "(A) 1+4",
+                    "(B) 2+4",
+                    "(C) 1+3",
+                    "(D) 1+3+4"
+                ],
+                answer: "A"
+            },
+            {
+                id: 78,
+                question: "關於台灣新生兒死亡率，以下何者正確？ 1.歷年趨勢是下降的 2.通報制度於 84 年改變使數據呈兩段式下降",
+                options: [
+                    "(A) 1+2+4",
+                    "(B) 1+3+4",
+                    "(C) 2+3",
+                    "(D) 1+2"
+                ],
+                answer: "D"
+            },
+            {
+                id: 79,
+                question: "關於周全性老年評估(CGA)，下列組合何者正確？ 2.是評估老年病症候群的工具 4.疾病末期者較不需要 5.是訂定整合照護計畫的依據",
+                options: [
+                    "(A) 1+2+3+5",
+                    "(B) 2+4+5",
+                    "(C) 1+2+4+5",
+                    "(D) 2+3+5"
+                ],
+                answer: "B"
+            },
+            {
+                id: 80,
+                question: "對於肝炎病毒，目前已有疫苗預防的有哪幾種？ 1.HAV 2.HBV 3.HCV 4.HDV 5.HGV",
+                options: [
+                    "(A) 1+2",
+                    "(B) 1+2+3",
+                    "(C) 1+2+5",
+                    "(D) 1+2+3+4+5"
+                ],
+                answer: "A"
+            }
+        ];
+        // 全域變數定義
+        let currentQuestions = [];
+        let currentState = {
+            currentIdx: 0,
+            answers: {},
+            isFinished: false,
+            score: 0,
+            correctCount: 0,
+            wrongCount: 0,
+            showGrid: false,
+            showDetail: false
+        };
+
+        // 隨機洗牌函數 (Fisher-Yates)
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // 初始化題庫數據
+        function initQuizData() {
+            // 深拷貝原始題庫數據
+            const cloned = JSON.parse(JSON.stringify(rawQuestions));
+
+            // 1. 打亂題目順序
+            shuffle(cloned);
+
+            // 2. 打亂每一題內部的選項順序並重新對應答案字母
+            cloned.forEach(q => {
+                const originalAnswerLetter = q.answer; // 例如 "B"
+                const originalIndex = originalAnswerLetter.charCodeAt(0) - 65;
+                const correctContent = q.options[originalIndex];
+
+                // 洗牌選項陣列
+                shuffle(q.options);
+
+                // 找到正確內容現在的位置，並更新答案字母
+                const newIndex = q.options.indexOf(correctContent);
+                q.answer = String.fromCharCode(65 + newIndex);
+            });
+
+            currentQuestions = cloned;
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+
+            if (currentState.isFinished) {
+                app.innerHTML = renderResult();
+                return;
+            }
+
+            const q = currentQuestions[currentState.currentIdx];
+            const progress = ((currentState.currentIdx + 1) / currentQuestions.length) * 100;
+            const selectedOpt = currentState.answers[q.id];
+
+            app.innerHTML = `
+                    <div class="bg-white rounded-t-xl shadow-sm p-6 border-b border-gray-100 sticky top-0 z-10">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-xl font-bold text-gray-800">108年高雄市護理甄選模擬考 (隨機出題模式)</h1>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">扣分制: -1.25/題</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full progress-bar" style="width: ${progress}%"></div>
+                        </div>
+                        <div class="flex justify-between items-end mt-2 text-sm">
+                            <span class="text-gray-500">第 ${currentState.currentIdx + 1} 題 / 共 ${currentQuestions.length} 題</span>
+                            <button onclick="toggleGrid()" class="text-blue-600 font-medium flex items-center gap-1">
+                                快速跳題
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-b-xl shadow-lg p-6 sm:p-10 min-h-[400px] flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-8 leading-snug">${q.question}</h2>
+                            <div class="space-y-4">
+                                ${q.options.map((opt, idx) => {
+                const currentLabel = `(${String.fromCharCode(65 + idx)})`;
+                const displayOpt = opt.replace(/^\([A-D]\)\s*/, "").trim();
+                const fullDisplay = `${currentLabel} ${displayOpt}`;
+                const isSelected = selectedOpt === fullDisplay;
+
+                return `
+                                        <button onclick="selectOption('${fullDisplay.replace(/'/g, "\\'")}')" class="w-full text-left p-4 rounded-xl border-2 flex items-start gap-3 transition-all ${isSelected ? 'border-blue-500 bg-blue-50 text-blue-900' : 'border-gray-200 hover:bg-gray-50 text-gray-700'}">
+                                            <div class="w-6 h-6 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${isSelected ? 'border-blue-500 bg-blue-500' : 'border-gray-300'}">
+                                                ${isSelected ? '<div class="w-2.5 h-2.5 bg-white rounded-full"></div>' : ''}
+                                            </div>
+                                            <span class="text-lg">${fullDisplay}</span>
+                                        </button>
+                                    `;
+            }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-10 pt-6 border-t border-gray-100">
+                            <button onclick="prevQ()" ${currentState.currentIdx === 0 ? 'disabled' : ''} class="px-6 py-3 rounded-lg font-medium text-gray-600 disabled:text-gray-300">上一題</button>
+                            <button onclick="nextQ()" ${!selectedOpt ? 'disabled' : ''} class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold shadow-md disabled:bg-gray-300 disabled:shadow-none transition-all active:scale-95">
+                                ${currentState.currentIdx === currentQuestions.length - 1 ? '交卷計分' : '下一題'}
+                            </button>
+                        </div>
+                    </div>
+                    ${renderGridOverlay()}
+                `;
+        }
+
+        function renderResult() {
+            return `
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="bg-blue-600 px-6 py-8 text-center text-white">
+                            <h2 class="text-3xl font-bold">測驗結果</h2>
+                            <p class="mt-2 text-blue-100">計分方式：滿分 100 分，每答錯一題扣 1.25 分</p>
+                        </div>
+                        <div class="px-6 py-8 text-center">
+                            <div class="mb-6">
+                                <span class="text-6xl font-bold text-gray-800">${currentState.score}</span>
+                                <span class="text-2xl text-gray-500"> 分</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-8 max-w-sm mx-auto">
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <p class="text-green-600 text-sm font-medium">答對題數</p>
+                                    <p class="text-2xl font-bold text-green-700">${currentState.correctCount}</p>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <p class="text-red-600 text-sm font-medium">答錯題數</p>
+                                    <p class="text-2xl font-bold text-red-700">${currentState.wrongCount}</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center gap-4 mb-8">
+                                <button onclick="toggleDetail()" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium">${currentState.showDetail ? '隱藏詳情' : '查看錯題與詳解'}</button>
+                                <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium">重新測驗 (重新隨機)</button>
+                            </div>
+                            ${currentState.showDetail ? renderDetailList() : ''}
+                        </div>
+                    </div>
+                `;
+        }
+
+        function renderDetailList() {
+            return currentQuestions.map((q, idx) => {
+                const userAnsFull = currentState.answers[q.id];
+                const userLetter = userAnsFull ? userAnsFull.match(/\(([A-D])\)/)[1] : "未答";
+                const isCorrect = userLetter === q.answer;
+                return `
+                        <div class="text-left p-4 rounded-lg border-2 mb-4 ${isCorrect ? 'border-green-100 bg-green-50' : 'border-red-100 bg-red-50'}">
+                            <h4 class="font-bold text-gray-800 text-lg mb-2">${idx + 1}. ${q.question}</h4>
+                            <div class="text-sm space-y-1 text-gray-600 mb-2">
+                                ${q.options.map((o, optIdx) => {
+                    const label = `(${String.fromCharCode(65 + optIdx)})`;
+                    const cleanContent = o.replace(/^\([A-D]\)\s*/, "").trim();
+                    const isCorrectOpt = String.fromCharCode(65 + optIdx) === q.answer;
+                    return `<div class="${isCorrectOpt ? 'text-green-700 font-bold' : ''}">${label} ${cleanContent}</div>`;
+                }).join('')}
+                            </div>
+                            <div class="text-sm font-medium">
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'}">您的答案: (${userLetter})</span>
+                                ${!isCorrect ? `<span class="text-green-700 ml-4 font-bold">正確答案: (${q.answer})</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+            }).join('');
+        }
+
+        function renderGridOverlay() {
+            if (!currentState.showGrid) return '';
+            return `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+                            <div class="p-4 border-b flex justify-between items-center">
+                                <h3 class="font-bold text-lg">題目導覽</h3>
+                                <button onclick="toggleGrid()" class="text-gray-500 font-bold text-xl">×</button>
+                            </div>
+                            <div class="p-4 overflow-y-auto grid grid-cols-5 sm:grid-cols-8 gap-2">
+                                ${currentQuestions.map((q, idx) => `
+                                    <button onclick="jumpTo(${idx})" class="p-2 rounded-lg border text-sm font-medium ${currentState.currentIdx === idx ? 'bg-blue-600 text-white' : (currentState.answers[q.id] ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white')}">
+                                        ${idx + 1}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+        }
+
+        // 邏輯處理函數
+        window.selectOption = (opt) => {
+            currentState.answers[currentQuestions[currentState.currentIdx].id] = opt;
+            render();
+        };
+
+        window.nextQ = () => {
+            if (currentState.currentIdx < currentQuestions.length - 1) {
+                currentState.currentIdx++;
+                render();
+            } else {
+                calculateScore();
+            }
+        };
+
+        window.prevQ = () => {
+            if (currentState.currentIdx > 0) {
+                currentState.currentIdx--;
+                render();
+            }
+        };
+
+        window.jumpTo = (idx) => {
+            currentState.currentIdx = idx;
+            currentState.showGrid = false;
+            render();
+        };
+
+        window.toggleGrid = () => {
+            currentState.showGrid = !currentState.showGrid;
+            render();
+        };
+
+        window.toggleDetail = () => {
+            currentState.showDetail = !currentState.showDetail;
+            render();
+        };
+
+        window.restartQuiz = () => {
+            initQuizData();
+            currentState = {
+                currentIdx: 0,
+                answers: {},
+                isFinished: false,
+                score: 0,
+                correctCount: 0,
+                wrongCount: 0,
+                showGrid: false,
+                showDetail: false
+            };
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        function calculateScore() {
+            let correct = 0;
+            let wrong = 0;
+
+            currentQuestions.forEach(q => {
+                const userAns = currentState.answers[q.id];
+                if (userAns) {
+                    const match = userAns.match(/\(([A-D])\)/);
+                    if (match && match[1] === q.answer) {
+                        correct++;
+                    } else {
+                        wrong++;
+                    }
+                } else {
+                    // 未答題目也算錯（或根據規則調整）
+                    wrong++;
+                }
+            });
+
+            // 每題扣 1.25 分
+            let finalScore = 100 - (wrong * 1.25);
+
+            // 分數低限為 0
+            if (finalScore < 0) finalScore = 0;
+
+            currentState.correctCount = correct;
+            currentState.wrongCount = wrong;
+            currentState.score = finalScore;
+            currentState.isFinished = true;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 初始化並執行程式
+        initQuizData();
+        render();
+    </script>
+</body>
+</html>
