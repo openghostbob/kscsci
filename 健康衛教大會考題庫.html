@@ -28,8 +28,7 @@
                 (1)慢性病防治及健康促進類。
                 (2)傳染病防治類(含預防注射)。
                 (3)心理衛生類(含自殺防治)。
-            </p>
-            <p class="text-gray-500 mb-8">總題庫：<span id="total-count">載入中...</span> 題 | 本次測驗：50 題</p>
+            </p>            <p class="text-gray-500 mb-8">總題庫：<span id="total-count">載入中...</span> 題 | 本次測驗：50 題</p>
             <div class="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-8 text-left text-sm text-amber-800">
                 <i class="fas fa-info-circle mr-2"></i> 系統已開啟「防重疊模式」：連續測驗將不會出現重複題目。
             </div>
@@ -42,8 +41,8 @@
         <div id="quiz-view" class="hidden">
             <div class="bg-white rounded-t-2xl shadow-sm p-5 border-b flex justify-between items-center">
                 <div>
-                    <div id="question-counter" class="text-sm font-bold text-blue-600 uppercase tracking-wider">Question 1/50</div>
-                    <div class="text-xs text-gray-400 mt-1" id="topic-info">正在從題庫抽取題目...</div>
+                    <div id="question-counter" class="text-sm font-bold text-blue-600 uppercase tracking-wider">題目 1/50</div>
+                   
                 </div>
                 <button onclick="toggleGrid()" class="p-2 hover:bg-gray-100 rounded-lg text-gray-500">
                     <i class="fas fa-th-large"></i>
@@ -55,6 +54,7 @@
             </div>
 
             <div class="bg-white rounded-b-2xl shadow-lg p-6 sm:p-10 min-h-[400px]">
+                <div class="text-xl font-bold text-gray-800 mb-8 leading-relaxed" id="topic-info">正在從題庫抽取題目...</div>
                 <div id="question-text" class="text-xl font-bold text-gray-800 mb-8 leading-relaxed"></div>
                 <div id="options-container" class="space-y-3"></div>
 
@@ -115,7 +115,6 @@
 
     <script>
         // 題庫資料
-
         const rawQuestions = [
             {
                 "id": 1,
@@ -6129,8 +6128,6 @@
             }
         ];
 
-
-
         // 狀態管理
         let allQuestions = rawQuestions;
         let currentQuizSet = [];
@@ -6179,7 +6176,7 @@
             const q = currentQuizSet[currentIndex];
             const container = document.getElementById('options-container');
 
-            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1} / ${currentQuizSet.length}`;
+            document.getElementById('question-counter').innerText = `題目 ${currentIndex + 1} / ${currentQuizSet.length}`;
             document.getElementById('topic-info').innerText = `題號: ${q.id}`;
             document.getElementById('question-text').innerText = q.question;
 
