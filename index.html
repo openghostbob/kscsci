@@ -71,7 +71,7 @@
     <!-- Top Hero Banner Image -->
     <div class="w-full flex justify-center items-center border-b border-amber-600/30 shadow-md">
         <div class="max-w-7xl w-full">
-            <img src="img/logo.jpg"
+            <img src="logo.jpg"
                  alt="社團法人高雄三山脊損重建協會 - 中秋關懷 About Us"
                  class="w-full h-auto object-contain max-h-[380px] sm:max-h-[480px] lg:max-h-[930px] mx-auto cursor-pointer block transition-opacity hover:opacity-95" />
         </div>
@@ -246,9 +246,9 @@
                                 <i class="fa-solid fa-user text-amber-600"></i> 訂購人與配送資訊
                             </h4>
                             <!-- Quick Fill Sample Data Button -->
-                            <!--<button type="button" onclick="fillSampleData()" class="text-[11px] bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-0.5 rounded font-medium transition flex items-center gap-1">
+                            <button type="button" onclick="fillSampleData()" class="text-[11px] bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-0.5 rounded font-medium transition flex items-center gap-1">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> 快速帶入測試資料
-                            </button>-->
+                            </button>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 text-xs">
@@ -396,7 +396,7 @@
                     <i class="fa-solid fa-circle-check text-green-600 text-base flex-shrink-0"></i>
                     <div>
                         <p class="font-bold">訂單資料已就緒！指定收件信箱：<span class="text-amber-800 underline">openghostbob@gmail.com</span></p>
-                        <p class="text-[11px] text-green-700 mt-0.5">點擊下方「開啟郵件發送」即可自動開啟 Email 軟體寄出，或複製內容貼至 LINE / 電子郵件傳送。</p>
+                        <p class="text-[11px] text-green-700 mt-0.5">點擊下方「開啟郵件發送」即可自動開啟 Email 軟體寄出，或複製內容貼至 Messenger / 電子郵件傳送。</p>
                     </div>
                 </div>
 
@@ -416,9 +416,9 @@
                     <i class="fa-solid fa-copy"></i>
                     <span>複製訂單內容</span>
                 </button>
-                <button onclick="shareViaLine()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition">
-                    <i class="fa-brands fa-line text-sm"></i>
-                    <span>分享至 LINE</span>
+                <button onclick="shareViaMessenger()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition">
+                    <i class="fa-brands fa-facebook-messenger text-sm"></i>
+                    <span>透過 Messenger 分享</span>
                 </button>
                 <button onclick="sendViaMailto()" class="bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition">
                     <i class="fa-solid fa-paper-plane"></i>
@@ -468,6 +468,7 @@
             { id: 9, name: "三山龍鳳雙喜禮盒 (12入)", price: 540, spec: "12入/盒", tag: "12入", detail: "龍鳳金磚*6 + 鳳梨金磚*6", bag: true, isVeg: true, image: "img/5.jpg" },
             { id: 10, name: "手工餅乾禮盒 (10入)", price: 150, spec: "10入/盒", tag: "10入", detail: "杏福樂桃桃米餅乾 + 黑糖燕麥果乾米餅乾", badge: "限量300盒", bag: false, isVeg: true, image: "img/10.jpg" },
             { id: 12, name: "平安幸福禮盒 (12入)", price: 500, spec: "12入/盒", tag: "12入", detail: "龍鳳金磚*3 + 鳳梨金磚*3 + 濾掛咖啡包*6", badge: "限量100盒", bag: true, isVeg: true, image: "img/12.jpg" },
+
         ];
 
         // State Store
@@ -509,7 +510,7 @@
                                 <div class="flex flex-wrap gap-1 mb-3">
                                     <span class="text-[10px] bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200">${p.isVeg ? '蛋奶素' : '一般'}</span>
                                     <span class="text-[10px] ${p.bag ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-100 text-gray-600 border-gray-200'} px-1.5 py-0.5 rounded border">
-                                        ${p.bag ? '✓ 附提袋' : '小禮盒裝'}
+                                        ${p.bag ? '✓ 附提袋' : '✕ 不附提袋'}
                                     </span>
                                 </div>
                             </div>
@@ -829,7 +830,7 @@ ${notes}
         function sendViaMailto() {
             const body = document.getElementById('email-body-preview').value;
             const ordererName = document.getElementById('orderer_name').value;
-            const subject = encodeURIComponent(`【三山烘焙坊中秋禮盒訂單】訂購人：${ordererName}`);
+            const subject = encodeURIComponent(`【三山烘焙坊中秋禮盒訂購單】訂購人：${ordererName}`);
             const encodedBody = encodeURIComponent(body);
             const mailtoUrl = `mailto:${TARGET_EMAIL}?subject=${subject}&body=${encodedBody}`;
 
@@ -837,12 +838,29 @@ ${notes}
             showToast(`已開啟郵件軟體，請點擊「寄出」發送至 ${TARGET_EMAIL}！`, 'success');
         }
 
-        // Share via LINE
-        function shareViaLine() {
+        // Share via Messenger
+        function shareViaMessenger() {
             const body = document.getElementById('email-body-preview').value;
-            const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(body)}`;
-            window.open(lineUrl, '_blank');
-            showToast('已為您開啟 LINE 分享頁面！', 'success');
+
+            // 自動複製訂單全文至剪貼簿
+            const textarea = document.getElementById('email-body-preview');
+            textarea.select();
+            document.execCommand('copy');
+
+            // 行動裝置若支援 Web Share API 可直接拉起分享面板選擇 Messenger
+            if (navigator.share) {
+                navigator.share({
+                    title: '三山烘焙坊中秋禮盒訂購單',
+                    text: body
+                }).catch(() => {
+                    window.open('https://www.facebook.com/messages/', '_blank');
+                });
+                showToast('已複製訂單內容！請選擇 Messenger 傳送', 'success');
+            } else {
+                // 電腦或不支援面板時，自動複製並開啟 Messenger 網頁
+                window.open('https://www.facebook.com/messages/', '_blank');
+                showToast('已複製訂單內容至剪貼簿，開啟 Messenger 後貼上即可！', 'success');
+            }
         }
 
         // Copy Order Text
