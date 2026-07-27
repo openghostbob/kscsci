@@ -1,0 +1,886 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三山烘焙坊 - 中秋禮盒線上訂購與購物車</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bakery: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        festive: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fcfbf7;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #b45309;
+            }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Hero Banner Image -->
+    <div class="w-full flex justify-center items-center border-b border-amber-600/30 shadow-md">
+        <div class="max-w-7xl w-full">
+            <img src="img/logo.jpg"
+                 alt="社團法人高雄三山脊損重建協會 - 中秋關懷 About Us"
+                 class="w-full h-auto object-contain max-h-[380px] sm:max-h-[480px] lg:max-h-[930px] mx-auto cursor-pointer block transition-opacity hover:opacity-95" />
+        </div>
+    </div>
+
+
+    <!-- Header / Banner -->
+    <header class="bg-gradient-to-r from-amber-700 via-amber-600 to-red-700 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white p-2 rounded-full shadow-inner text-amber-700 text-2xl w-12 h-12 flex items-center justify-center font-bold">
+                    <i class="fa-solid font-bold">三</i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-wide flex items-center gap-2">
+                        三山烘焙坊 <span class="text-xs bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-normal">Three Mountain Bakery</span>
+                    </h1>
+                    <p class="text-xs text-amber-100 mt-0.5">社團法人高雄三山脊損重建協會 | 讓大眾看見能力、建立信任</p>
+                </div>
+            </div>
+
+            <!-- Quick Contacts & Cart trigger button -->
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
+                <div class="text-right hidden md:block text-xs text-amber-100 border-r border-amber-500/50 pr-4">
+                    <p><i class="fa-solid font-bold">☎</i> 訂購專線: 07-7191039</p>
+                    <p><i class="fa-solid font-bold">✉</i> 信箱: sgpsci@gmail.com</p>
+                </div>
+                <a href="#cart-section" class="bg-amber-100 hover:bg-white text-amber-900 font-semibold px-4 py-2 rounded-xl shadow-md transition-all duration-200 flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-cart-shopping text-amber-700"></i>
+                    <span>已選商品</span>
+                    <span id="cart-badge" class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Notice Banner -->
+    <section class="bg-amber-50 border-b border-amber-200 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm text-amber-800 flex flex-col md:flex-row items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="bg-amber-600 text-white px-2 py-0.5 rounded text-xs font-bold">溫馨提醒</span>
+                <span>✨ <b>8入及12入</b>禮盒皆附精美提袋！6入禮盒及手工米餅乾為小禮盒裝（不附提袋）。蛋奶素皆可食用。</span>
+            </div>
+            <div class="text-amber-700 font-medium flex items-center gap-2">
+                <span><i class="fa-solid fa-truck-fast"></i> 高雄市區滿7盒免運 / 外縣市滿$3,000免運</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- Left Column: Product Selection (7 cols on large screens) -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Section Title & Filter -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-store text-amber-600"></i> 中秋禮盒產品目錄
+                        </h2>
+                        <p class="text-xs text-gray-500 mt-1">請選擇您喜愛的禮盒數量，自動計算金額與優惠資訊</p>
+                    </div>
+                    <!-- Category Filters -->
+                    <div class="flex flex-wrap gap-1" id="category-filters">
+                        <button onclick="filterCategory('all')" class="filter-btn active bg-amber-600 text-white text-xs px-3 py-1.5 rounded-lg shadow-sm font-medium transition">全部商品</button>
+                        <button onclick="filterCategory('6入')" class="filter-btn bg-gray-100 hover:bg-amber-100 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition">6入小禮盒</button>
+                        <button onclick="filterCategory('8入')" class="filter-btn bg-gray-100 hover:bg-amber-100 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition">8入禮盒</button>
+                        <button onclick="filterCategory('10入')" class="filter-btn bg-gray-100 hover:bg-amber-100 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition">10入/手工餅乾</button>
+                        <button onclick="filterCategory('12入')" class="filter-btn bg-gray-100 hover:bg-amber-100 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition">12入禮盒</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="product-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic Product Cards will be rendered here by JS -->
+                </div>
+            </div>
+
+            <!-- Right Column: Cart Summary & Checkout Form (5 cols on large screens) -->
+            <div class="lg:col-span-5 space-y-6" id="cart-section">
+                <div class="bg-white rounded-2xl shadow-xl border border-amber-100 p-5 sticky top-24">
+
+                    <!-- Cart Header -->
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+                        <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping text-amber-600"></i> 購物車細項
+                        </h3>
+                        <button onclick="clearCart()" class="text-xs text-red-500 hover:text-red-700 flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i> 清空購物車
+                        </button>
+                    </div>
+
+                    <!-- Selected Items List -->
+                    <div id="cart-items" class="space-y-3 max-h-60 overflow-y-auto pr-1 mb-4 text-sm divide-y divide-gray-100">
+                        <div id="empty-cart-msg" class="text-center py-8 text-gray-400">
+                            <i class="fa-solid fa-cart-flatbed text-4xl mb-2 text-gray-300"></i>
+                            <p>尚未選擇任何商品</p>
+                            <p class="text-xs text-gray-400">請從左側目錄點擊「+」加入商品</p>
+                        </div>
+                    </div>
+
+                    <!-- Shipping & Region Options -->
+                    <div class="bg-amber-50/60 p-3.5 rounded-xl space-y-3 mb-4 text-xs border border-amber-200/50">
+                        <div class="font-bold text-amber-900 border-b border-amber-200/60 pb-1 flex justify-between">
+                            <span>★ 配送運費試算</span>
+                            <span id="shipping-status-badge" class="text-red-600 font-normal">需滿7盒或$3000免運</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block font-medium text-gray-700">請選擇配送地區：</label>
+                            <div class="grid grid-cols-1 gap-2">
+                                <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded border border-gray-200 hover:border-amber-400">
+                                    <input type="radio" name="shipping_region" value="kaohsiung" checked onchange="calculateOrderTotal()" class="text-amber-600 focus:ring-amber-500">
+                                    <span><b>高雄市市區</b> (滿 7 盒免運費，未滿運費 $150)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded border border-gray-200 hover:border-amber-400">
+                                    <input type="radio" name="shipping_region" value="other_counties" onchange="calculateOrderTotal()" class="text-amber-600 focus:ring-amber-500">
+                                    <span><b>外縣市/偏遠地區</b> (滿 $3,000 免運，未滿運費 $150)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded border border-gray-200 hover:border-amber-400">
+                                    <input type="radio" name="shipping_region" value="outlying" onchange="calculateOrderTotal()" class="text-amber-600 focus:ring-amber-500">
+                                    <span><b>離島 / 國外地區</b> (運費專人另計)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="space-y-2 pt-2 border-t border-amber-200/60">
+                            <label class="block font-medium text-gray-700">付款方式：</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <label class="flex items-center gap-1 cursor-pointer bg-white p-1.5 rounded border border-gray-200 text-xs">
+                                    <input type="radio" name="payment_method" value="cod" onchange="calculateOrderTotal()" class="text-amber-600">
+                                    <span>貨到付款 (+30元)</span>
+                                </label>
+                                <label class="flex items-center gap-1 cursor-pointer bg-white p-1.5 rounded border border-gray-200 text-xs">
+                                    <input type="radio" name="payment_method" value="bank" checked onchange="calculateOrderTotal()" class="text-amber-600">
+                                    <span>銀行轉帳/匯款</span>
+                                </label>
+                                <label class="flex items-center gap-1 cursor-pointer bg-white p-1.5 rounded border border-gray-200 text-xs">
+                                    <input type="radio" name="payment_method" value="post" onchange="calculateOrderTotal()" class="text-amber-600">
+                                    <span>郵政劃撥</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Breakdown Summary -->
+                    <div class="space-y-1.5 text-xs text-gray-600 border-t border-gray-200 pt-3 mb-4">
+                        <div class="flex justify-between">
+                            <span>商品小計 (<span id="total-box-count">0</span> 盒)：</span>
+                            <span class="font-medium text-gray-800">NT$ <span id="subtotal-amount">0</span></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>運費：</span>
+                            <span class="font-medium text-gray-800">NT$ <span id="shipping-fee-amount">0</span></span>
+                        </div>
+                        <div class="flex justify-between text-red-600" id="cod-fee-row" style="display:none;">
+                            <span>貨到付款手續費：</span>
+                            <span class="font-medium">NT$ 30</span>
+                        </div>
+                        <div class="flex justify-between items-center text-base font-bold text-amber-900 border-t border-dashed border-gray-300 pt-2 mt-2">
+                            <span>應付總金額：</span>
+                            <span class="text-xl text-red-600">NT$ <span id="grand-total-amount">0</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Customer Information Form -->
+                    <form id="order-info-form" onsubmit="handleFormSubmit(event)" class="space-y-3">
+                        <div class="flex items-center justify-between border-b pb-1">
+                            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1">
+                                <i class="fa-solid fa-user text-amber-600"></i> 訂購人與配送資訊
+                            </h4>
+                            <!-- Quick Fill Sample Data Button -->
+                             
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                                <label class="block font-medium text-gray-700 mb-0.5">訂購人姓名 <span class="text-red-500">*</span></label>
+                                <input type="text" id="orderer_name" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" placeholder="請輸入姓名">
+                            </div>
+                            <div>
+                                <label class="block font-medium text-gray-700 mb-0.5">訂購人電話 <span class="text-red-500">*</span></label>
+                                <input type="tel" id="orderer_phone" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" placeholder="0912-345678">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                                <label class="block font-medium text-gray-700 mb-0.5">電子信箱 Email <span class="text-red-500">*</span></label>
+                                <input type="email" id="orderer_email" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" placeholder="name@example.com">
+                            </div>
+                            <div>
+                                <label class="block font-medium text-gray-700 mb-0.5">收貨人姓名 <span class="text-red-500">*</span></label>
+                                <input type="text" id="receiver_name" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" placeholder="同訂購人可填相同">
+                            </div>
+                        </div>
+
+                        <div class="text-xs">
+                            <label class="block font-medium text-gray-700 mb-0.5">收貨人電話 <span class="text-red-500">*</span></label>
+                            <input type="tel" id="receiver_phone" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" placeholder="0912-345678">
+                        </div>
+
+                        <div class="text-xs">
+                            <label class="block font-medium text-gray-700 mb-0.5">完整配送地址 <span class="text-red-500">*</span></label>
+                            <input type="text" id="delivery_address" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" placeholder="請包含縣市鄉鎮市區門牌">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                                <label class="block font-medium text-gray-700 mb-0.5">希望到貨日期</label>
+                                <input type="date" id="delivery_date" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none">
+                                <span class="text-[10px] text-red-500">*星期六、日不收貨</span>
+                            </div>
+                            <div>
+                                <label class="block font-medium text-gray-700 mb-0.5">希望到貨時段</label>
+                                <select id="delivery_time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none">
+                                    <option value="下午1點前">下午1點前</option>
+                                    <option value="下午2~6點前">下午2~6點前</option>
+                                    <option value="不指定">不指定</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Invoice Settings -->
+                        <div class="bg-gray-50 p-2.5 rounded-lg space-y-2 border border-gray-200 text-xs">
+                            <div class="flex items-center gap-4">
+                                <span class="font-medium text-gray-700">發票格式：</span>
+                                <label class="inline-flex items-center gap-1 cursor-pointer">
+                                    <input type="radio" name="invoice_type" value="二聯" checked onclick="toggleTaxFields()" class="text-amber-600"> 二聯式
+                                </label>
+                                <label class="inline-flex items-center gap-1 cursor-pointer">
+                                    <input type="radio" name="invoice_type" value="三聯" onclick="toggleTaxFields()" class="text-amber-600"> 三聯式
+                                </label>
+                            </div>
+                            <div id="tax-fields" class="grid grid-cols-2 gap-2 pt-1" style="display: none;">
+                                <input type="text" id="tax_id" class="p-1.5 border border-gray-300 rounded focus:outline-none" placeholder="統一編號">
+                                <input type="text" id="invoice_title" class="p-1.5 border border-gray-300 rounded focus:outline-none" placeholder="發票抬頭">
+                            </div>
+                        </div>
+
+                        <!-- Special Notes -->
+                        <div class="text-xs">
+                            <label class="block font-medium text-gray-700 mb-0.5">備註說明</label>
+                            <textarea id="order_notes" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none text-xs" placeholder="其他特殊需求或備註事項..."></textarea>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 text-base">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>完成選購，寄送訂單至 sgpsci@gmail.com</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bank Details & Association Info Footer -->
+    <footer class="bg-gray-900 text-gray-300 border-t-4 border-amber-600 mt-12 py-8 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Org Info -->
+            <div class="space-y-2">
+                <h3 class="text-white font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-red-500"></i> 社團法人高雄三山脊損重建協會
+                </h3>
+                <p class="text-gray-400">三山烘焙坊 Three Mountain Bakery</p>
+                <p>聯絡人：林香君</p>
+                <p>訂購專線：07-7191039 | 手機：0977-226299</p>
+                <p>傳真專線：07-7191038</p>
+                <p>服務信箱：sgpsci@gmail.com</p>
+                <p class="text-gray-500 text-[11px] pt-1">食品登記字號: E-178940958-00000-2 / E-142802798-0000-2</p>
+            </div>
+
+            <!-- Bank Info -->
+            <div class="space-y-2 bg-gray-800 p-4 rounded-xl border border-gray-700">
+                <h4 class="text-amber-400 font-bold text-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-building-columns"></i> 匯款與劃撥帳號
+                </h4>
+                <div class="space-y-1.5 text-gray-300">
+                    <p><b class="text-white">【台新銀行 三民分行】</b> (812-0676)</p>
+                    <p class="font-mono bg-gray-900 px-2 py-1 rounded text-amber-300">帳號：2067-01-0000430-1</p>
+                    <p><b class="text-white">【高雄銀行 鳳山分行】</b> (016-2003)</p>
+                    <p class="font-mono bg-gray-900 px-2 py-1 rounded text-amber-300">帳號：2001-02-222112</p>
+                    <p class="text-gray-400">戶名：社團法人高雄三山脊損重建協會</p>
+                    <p class="border-t border-gray-700 pt-1.5"><b class="text-white">【郵政劃撥】</b> 41853015</p>
+                </div>
+            </div>
+
+            <!-- Bakery Mission -->
+            <div class="space-y-2">
+                <h4 class="text-amber-400 font-bold text-sm">自立生活與社會共融</h4>
+                <p class="text-gray-400 leading-relaxed">
+                    本會結合社會資源，重視脊損傷友之生活空間及尊嚴，協助其自立自強。透過適切的訓練、友善職場及穩定工作機會，讓障礙者成為自立生活的實踐者，共創經濟價值與社會責任。
+                </p>
+                <div class="pt-2 text-gray-500">
+                    &copy; <span id="year">2026</span> 三山烘焙坊. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Confirmation / Email Dispatch Modal -->
+    <div id="order-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-amber-200 animate-fade-in">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-amber-600 to-red-600 text-white p-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-envelope-circle-check text-2xl"></i>
+                    <h3 class="text-lg font-bold">訂購單已成功生成！發送至信箱</h3>
+                </div>
+                <button onclick="closeModal()" class="text-white hover:text-amber-200 text-xl font-bold p-1">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto space-y-4 text-sm">
+                <div class="bg-green-50 border border-green-200 text-green-800 p-3 rounded-xl text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-green-600 text-base flex-shrink-0"></i>
+                    <div>
+                        <p class="font-bold">訂單資料已就緒！指定收件信箱：<span class="text-amber-800 underline">sgpsci@gmail.com</span></p>
+                        <p class="text-[11px] text-green-700 mt-0.5">點擊下方「開啟郵件發送」即可自動開啟 Email 軟體寄出，或複製內容貼至 LINE / 電子郵件傳送。</p>
+                    </div>
+                </div>
+
+                <!-- Formatted Email Content Preview -->
+                <div class="space-y-1">
+                    <div class="flex justify-between items-center">
+                        <label class="font-bold text-gray-700">訂購單全文預覽：</label>
+                        <span id="order-no-display" class="text-xs font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200"></span>
+                    </div>
+                    <textarea id="email-body-preview" readonly class="w-full h-64 p-3 font-mono text-xs bg-gray-50 border border-gray-300 rounded-xl focus:outline-none resize-none leading-relaxed text-gray-800"></textarea>
+                </div>
+            </div>
+
+            <!-- Modal Footer / Action Buttons -->
+            <div class="bg-gray-50 p-4 border-t border-gray-200 flex flex-col sm:flex-row gap-2.5 justify-end">
+                <label class="font-bold text-gray-700">請擇一使用電腦版或手機版下單：</label>
+                
+                <button onclick="copyOrderText()" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2.5 rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>電腦版<br>請複製訂單內容開啟郵件貼上內容發送 sgpsci@gmail.com</span>
+                </button>
+                <!--<button onclick="shareViaLine()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-medium text-xs flex items-center justify-center gap-1.5 transition">
+        <i class="fa-brands fa-line text-sm"></i>
+        <span>分享至 LINE</span>
+    </button>-->
+
+                <button onclick="sendViaMailto()" class="bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>手機版<br>開啟郵件發送 sgpsci@gmail.com</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal for Large Preview -->
+    <div id="image-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeImageModal()">
+        <div class="relative bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col animate-fade-in" onclick="event.stopPropagation()">
+            <div class="bg-gradient-to-r from-amber-700 to-amber-900 text-white p-3.5 px-5 flex justify-between items-center">
+                <h3 id="image-modal-title" class="font-bold text-base truncate flex items-center gap-2">
+                    <i class="fa-solid fa-image text-amber-300"></i>
+                    <span>禮盒圖片預覽</span>
+                </h3>
+                <button onclick="closeImageModal()" class="text-white hover:text-amber-200 text-2xl font-bold px-2 py-0.5 rounded-lg transition">&times;</button>
+            </div>
+            <div class="p-4 bg-gray-900 flex items-center justify-center overflow-hidden flex-1">
+                <img id="image-modal-img" src="" alt="原圖" class="max-h-[75vh] w-auto max-w-full object-contain rounded-lg shadow-2xl">
+            </div>
+            <div class="bg-gray-100 p-2.5 text-center text-xs text-gray-500 border-t">
+                點擊空白處或右上角 ✕ 可關閉大圖
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Message -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 text-xs">
+        <i id="toast-icon" class="fa-solid fa-circle-info text-amber-400"></i>
+        <span id="toast-message">提示訊息</span>
+    </div>
+
+    <script>
+        // Target Email Configuration
+        const TARGET_EMAIL = 'sgpsci@gmail.com';
+
+        // 1. Complete Product Database with Image URLs
+        const products = [
+            { id: 3, name: "三山龍鳳雙喜禮盒 (6入)", price: 280, spec: "6入/盒", tag: "6入", detail: "龍鳳金磚*3 + 鳳梨金磚*3", badge: "限量100盒", bag: false, isVeg: true, image: "img/3.jpg" },
+            { id: 4, name: "三山龍鳳金磚禮盒 (8入)", price: 400, spec: "8入/盒", tag: "8入", detail: "龍鳳金磚*8", bag: true, isVeg: true, image: "img/4.jpg" },
+            { id: 5, name: "三山鳳梨金磚禮盒 (8入)", price: 360, spec: "8入/盒", tag: "8入", detail: "鳳梨金磚*8", bag: true, isVeg: true, image: "img/5.jpg" },
+            { id: 6, name: "三山龍鳳雙喜禮盒 (8入)", price: 400, spec: "8入/盒", tag: "8入", detail: "龍鳳金磚*4 + 鳳梨金磚*4", bag: true, isVeg: true, image: "img/6.jpg" },
+            { id: 7, name: "三山龍鳳金磚禮盒 (12入)", price: 600, spec: "12入/盒", tag: "12入", detail: "龍鳳金磚*12", bag: true, isVeg: true, image: "img/4.jpg" },
+            { id: 8, name: "三山鳳梨金磚禮盒 (12入)", price: 570, spec: "12入/盒", tag: "12入", detail: "鳳梨金磚*12", bag: true, isVeg: true, image: "img/6.jpg" },
+            { id: 9, name: "三山龍鳳雙喜禮盒 (12入)", price: 540, spec: "12入/盒", tag: "12入", detail: "龍鳳金磚*6 + 鳳梨金磚*6", bag: true, isVeg: true, image: "img/5.jpg" },
+            { id: 10, name: "手工餅乾禮盒 (10入)", price: 150, spec: "10入/盒", tag: "10入", detail: "杏福樂桃桃米餅乾 + 黑糖燕麥果乾米餅乾", badge: "限量300盒", bag: false, isVeg: true, image: "img/10.jpg" },
+            { id: 12, name: "平安幸福禮盒 (12入)", price: 500, spec: "12入/盒", tag: "12入", detail: "龍鳳金磚*3 + 鳳梨金磚*3 + 濾掛咖啡包*6", badge: "限量100盒", bag: true, isVeg: true, image: "img/12.jpg" },
+        ];
+
+        // State Store
+        let cart = {}; // productId -> quantity
+        let currentCategory = 'all';
+
+        // Render Product Cards
+        function renderProducts() {
+            const container = document.getElementById('product-list-container');
+            container.innerHTML = '';
+
+            const filtered = currentCategory === 'all'
+                ? products
+                : products.filter(p => p.tag === currentCategory);
+
+            filtered.forEach(p => {
+                const qty = cart[p.id] || 0;
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-200/80 p-3 sm:p-4 transition-all duration-200 flex flex-col sm:flex-row gap-3.5 items-stretch";
+
+                card.innerHTML = `
+                        <!-- Left Column: Responsive Product Image -->
+                        <div onclick="openImageModal('${p.image}', '${p.name}')" class="relative w-full sm:w-28 sm:h-28 h-44 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer group bg-amber-50 border border-amber-100/60">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400/f59e0b/ffffff?text=三山烘焙坊'">
+                            <div class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium gap-1 backdrop-blur-[1px]">
+                                <i class="fa-solid fa-magnifying-glass-plus text-sm"></i> 點擊放大
+                            </div>
+                            <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded backdrop-blur-sm sm:hidden">點圖放大</span>
+                        </div>
+
+                        <!-- Right Column: Details & Quantity Controls -->
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-1 gap-1">
+                                    <h3 class="font-bold text-gray-800 text-sm leading-tight">${p.name}</h3>
+                                    ${p.badge ? `<span class="bg-red-100 text-red-700 text-[10px] px-1.5 py-0.5 rounded font-bold flex-shrink-0">${p.badge}</span>` : ''}
+                                </div>
+                                <p class="text-xs text-gray-500 mb-2">${p.detail}</p>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-[10px] bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200">${p.isVeg ? '蛋奶素' : '一般'}</span>
+                                    <span class="text-[10px] ${p.bag ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-100 text-gray-600 border-gray-200'} px-1.5 py-0.5 rounded border">
+                                        ${p.bag ? '✓ 附提袋' : '小禮盒裝'}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-gray-100 pt-2.5 mt-auto">
+                                <div class="text-amber-700 font-bold text-base">
+                                    NT$ ${p.price}
+                                </div>
+                                <!-- Quantity Controller -->
+                                <div class="flex items-center space-x-1.5 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                                    <button onclick="updateQty(${p.id}, -1)" class="w-6 h-6 rounded bg-white hover:bg-gray-200 font-bold text-gray-700 flex items-center justify-center text-xs shadow-sm">-</button>
+                                    <span class="w-8 text-center text-xs font-bold text-gray-800">${qty}</span>
+                                    <button onclick="updateQty(${p.id}, 1)" class="w-6 h-6 rounded bg-amber-600 hover:bg-amber-700 font-bold text-white flex items-center justify-center text-xs shadow-sm">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                container.appendChild(card);
+            });
+        }
+
+        // Open Image Lightbox
+        function openImageModal(imgSrc, title) {
+            document.getElementById('image-modal-img').src = imgSrc;
+            document.getElementById('image-modal-title').innerText = title;
+            document.getElementById('image-modal').classList.remove('hidden');
+        }
+
+        // Close Image Lightbox
+        function closeImageModal() {
+            document.getElementById('image-modal').classList.add('hidden');
+        }
+
+        // Category Filter
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-amber-600', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            event.target.classList.add('active', 'bg-amber-600', 'text-white');
+            event.target.classList.remove('bg-gray-100', 'text-gray-700');
+            renderProducts();
+        }
+
+        // Quantity update handler
+        function updateQty(id, change) {
+            const current = cart[id] || 0;
+            const updated = current + change;
+            if (updated <= 0) {
+                delete cart[id];
+            } else {
+                cart[id] = updated;
+            }
+            renderProducts();
+            renderCart();
+            calculateOrderTotal();
+        }
+
+        // Render Cart Summary
+        function renderCart() {
+            const cartContainer = document.getElementById('cart-items');
+            const cartBadge = document.getElementById('cart-badge');
+            const keys = Object.keys(cart);
+
+            let totalBoxes = 0;
+            keys.forEach(k => totalBoxes += cart[k]);
+            cartBadge.innerText = totalBoxes;
+
+            if (keys.length === 0) {
+                cartContainer.innerHTML = `
+                        <div id="empty-cart-msg" class="text-center py-8 text-gray-400">
+                            <i class="fa-solid fa-cart-flatbed text-4xl mb-2 text-gray-300"></i>
+                            <p>尚未選擇任何商品</p>
+                            <p class="text-xs text-gray-400">請從左側目錄點擊「+」加入商品</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            cartContainer.innerHTML = '';
+            keys.forEach(idStr => {
+                const id = parseInt(idStr);
+                const item = products.find(p => p.id === id);
+                const qty = cart[id];
+                const itemTotal = item.price * qty;
+
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center py-2";
+                div.innerHTML = `
+                        <div class="pr-2">
+                            <p class="font-bold text-gray-800 text-xs">${item.name}</p>
+                            <p class="text-[11px] text-gray-500">NT$ ${item.price} × ${qty}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-amber-800 text-xs">NT$ ${itemTotal}</span>
+                            <div class="flex items-center space-x-1">
+                                <button onclick="updateQty(${id}, -1)" class="w-5 h-5 bg-gray-200 hover:bg-gray-300 rounded text-xs text-gray-700">-</button>
+                                <button onclick="updateQty(${id}, 1)" class="w-5 h-5 bg-amber-600 hover:bg-amber-700 rounded text-xs text-white">+</button>
+                            </div>
+                        </div>
+                    `;
+                cartContainer.appendChild(div);
+            });
+        }
+
+        function clearCart() {
+            cart = {};
+            renderProducts();
+            renderCart();
+            calculateOrderTotal();
+            showToast('購物車已清空', 'info');
+        }
+
+        // Main Order Total Calculation Engine
+        function calculateOrderTotal() {
+            let subtotal = 0;
+            let totalBoxes = 0;
+
+            Object.keys(cart).forEach(idStr => {
+                const id = parseInt(idStr);
+                const qty = cart[idStr];
+                const item = products.find(p => p.id === id);
+                subtotal += item.price * qty;
+                totalBoxes += qty;
+            });
+
+            document.getElementById('subtotal-amount').innerText = subtotal;
+            document.getElementById('total-box-count').innerText = totalBoxes;
+
+            // Shipping logic
+            const region = document.querySelector('input[name="shipping_region"]:checked').value;
+            let shippingFee = 0;
+            let statusText = "";
+
+            if (totalBoxes === 0) {
+                shippingFee = 0;
+                statusText = "尚無商品";
+            } else if (region === 'kaohsiung') {
+                if (totalBoxes >= 7) {
+                    shippingFee = 0;
+                    statusText = "✓ 已達高雄滿7盒免運";
+                } else {
+                    shippingFee = 150;
+                    statusText = `還差 ${7 - totalBoxes} 盒享免運`;
+                }
+            } else if (region === 'other_counties') {
+                if (subtotal >= 3000) {
+                    shippingFee = 0;
+                    statusText = "✓ 已達外縣市滿$3000免運";
+                } else {
+                    shippingFee = 150;
+                    statusText = `還差 NT$ ${3000 - subtotal} 享免運`;
+                }
+            } else if (region === 'outlying') {
+                shippingFee = 0; // TBD / separately calculated
+                statusText = "離島/國外運費另計";
+            }
+
+            document.getElementById('shipping-fee-amount').innerText = shippingFee;
+            const badge = document.getElementById('shipping-status-badge');
+            badge.innerText = statusText;
+            if (shippingFee === 0 && totalBoxes > 0) {
+                badge.className = "text-green-600 font-bold";
+            } else {
+                badge.className = "text-red-600 font-normal";
+            }
+
+            // Payment method Cash on delivery fee logic
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            const codRow = document.getElementById('cod-fee-row');
+            let codFee = 0;
+            if (paymentMethod === 'cod') {
+                codFee = 30;
+                codRow.style.display = 'flex';
+            } else {
+                codFee = 0;
+                codRow.style.display = 'none';
+            }
+
+            const grandTotal = subtotal + shippingFee + codFee;
+            document.getElementById('grand-total-amount').innerText = grandTotal;
+
+            return { subtotal, totalBoxes, shippingFee, codFee, grandTotal, region, paymentMethod };
+        }
+
+        // Toggle Tax Fields
+        function toggleTaxFields() {
+            const type = document.querySelector('input[name="invoice_type"]:checked').value;
+            const fields = document.getElementById('tax-fields');
+            if (type === '三聯') {
+                fields.style.display = 'grid';
+            } else {
+                fields.style.display = 'none';
+            }
+        }
+
+        // Quick fill sample data helper
+        function fillSampleData() {
+            document.getElementById('orderer_name').value = "張小花";
+            document.getElementById('orderer_phone').value = "0988-123456";
+            document.getElementById('orderer_email').value = "customer@example.com";
+            document.getElementById('receiver_name').value = "張小花";
+            document.getElementById('receiver_phone').value = "0988-123456";
+            document.getElementById('delivery_address').value = "高雄市鳳山區光復路二段120號";
+
+            // Set date to 7 days later
+            const futureDate = new Date();
+            futureDate.setDate(futureDate.getDate() + 7);
+            document.getElementById('delivery_date').value = futureDate.toISOString().split('T')[0];
+            document.getElementById('order_notes').value = "請儘量於上午時段送達，謝謝！";
+
+            // If cart empty, add default items
+            if (Object.keys(cart).length === 0) {
+                cart[1] = 2; // 2 boxes
+                cart[4] = 3; // 3 boxes
+                cart[7] = 2; // 2 boxes
+                renderProducts();
+                renderCart();
+                calculateOrderTotal();
+            }
+            showToast('已成功帶入測試訂購資料！', 'success');
+        }
+
+        // Handle Form Submit
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            if (Object.keys(cart).length === 0) {
+                showToast('請先將欲訂購的禮盒加入購物車！', 'warning');
+                return;
+            }
+
+            const calc = calculateOrderTotal();
+            const ordererName = document.getElementById('orderer_name').value.trim();
+            const ordererPhone = document.getElementById('orderer_phone').value.trim();
+            const ordererEmail = document.getElementById('orderer_email').value.trim();
+            const receiverName = document.getElementById('receiver_name').value.trim();
+            const receiverPhone = document.getElementById('receiver_phone').value.trim();
+            const address = document.getElementById('delivery_address').value.trim();
+            const delivDate = document.getElementById('delivery_date').value || "不指定";
+            const delivTime = document.getElementById('delivery_time').value;
+            const invoiceType = document.querySelector('input[name="invoice_type"]:checked').value;
+            const taxId = document.getElementById('tax_id').value.trim();
+            const invoiceTitle = document.getElementById('invoice_title').value.trim();
+            const notes = document.getElementById('order_notes').value.trim() || "無";
+
+            // Generate unique Order Number
+            const orderNo = 'TMB' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 12);
+            document.getElementById('order-no-display').innerText = `單號: ${orderNo}`;
+
+            // Format Shipping region text
+            let regionText = "高雄市市區";
+            if (calc.region === 'other_counties') regionText = "外縣市/偏遠地區";
+            if (calc.region === 'outlying') regionText = "離島/國外 (運費另計)";
+
+            // Format Payment method text
+            let payText = "銀行轉帳/匯款";
+            if (calc.paymentMethod === 'cod') payText = "貨到付款 (酌收手續費30元)";
+            if (calc.paymentMethod === 'post') payText = "郵政劃撥";
+
+            // Build Item List Text
+            let itemsText = "";
+            let idx = 1;
+            Object.keys(cart).forEach(idStr => {
+                const id = parseInt(idStr);
+                const qty = cart[idStr];
+                const item = products.find(p => p.id === id);
+                itemsText += `${idx}. ${item.name}\n   - 數量: ${qty} 盒 | 單價: NT$${item.price} | 小計: NT$${item.price * qty}\n`;
+                idx++;
+            });
+
+            // Construct Full Formatted Email Body
+            const emailBody = `【三山烘焙坊 - 中秋禮盒訂購單】
+訂單編號：${orderNo}
+=======================================
+【訂購人資訊】
+訂購人姓名：${ordererName}
+聯絡電話：${ordererPhone}
+電子信箱：${ordererEmail}
+
+【收件人資訊】
+收貨人姓名：${receiverName}
+收貨人電話：${receiverPhone}
+配送地址：${address}
+希望到貨日期：${delivDate} (${delivTime})
+
+【訂購明細】
+${itemsText}
+---------------------------------------
+商品總盒數：${calc.totalBoxes} 盒
+商品小計：NT$ ${calc.subtotal} 元
+配送地區：${regionText}
+運費：NT$ ${calc.shippingFee} 元
+${calc.codFee > 0 ? `貨到付款手續費：NT$ ${calc.codFee} 元\n` : ''}總計金額：NT$ ${calc.grandTotal} 元
+
+【付款與發票】
+付款方式：${payText}
+發票格式：${invoiceType}聯式 ${invoiceType === '三聯' ? `\n統一編號：${taxId}\n發票抬頭：${invoiceTitle}` : ''}
+
+【備註事項】
+${notes}
+=======================================
+指定寄送信箱：${TARGET_EMAIL}
+填單時間：${new Date().toLocaleString()}
+`;
+
+            document.getElementById('email-body-preview').value = emailBody;
+            document.getElementById('order-modal').classList.remove('hidden');
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('order-modal').classList.add('hidden');
+        }
+
+        // Mailto Dispatch to TARGET_EMAIL
+        function sendViaMailto() {
+            const body = document.getElementById('email-body-preview').value;
+            const ordererName = document.getElementById('orderer_name').value;
+            const subject = encodeURIComponent(`【三山烘焙坊中秋禮盒訂單】訂購人：${ordererName}`);
+            const encodedBody = encodeURIComponent(body);
+            const mailtoUrl = `mailto:${TARGET_EMAIL}?subject=${subject}&body=${encodedBody}`;
+
+            window.location.href = mailtoUrl;
+            showToast(`已開啟郵件軟體，請點擊「寄出」發送至 ${TARGET_EMAIL}！`, 'success');
+        }
+
+        // Share via LINE
+        function shareViaLine() {
+            const body = document.getElementById('email-body-preview').value;
+            const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(body)}`;
+            window.open(lineUrl, '_blank');
+            showToast('已為您開啟 LINE 分享頁面！', 'success');
+        }
+
+        // Copy Order Text
+        function copyOrderText() {
+            const textarea = document.getElementById('email-body-preview');
+            textarea.select();
+            document.execCommand('copy');
+            showToast('訂購單全文已成功複製至剪貼簿！', 'success');
+        }
+
+        // Toast Helper
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-message');
+
+            text.innerText = msg;
+            if (type === 'success') {
+                icon.className = "fa-solid fa-circle-check text-green-400";
+            } else if (type === 'warning') {
+                icon.className = "fa-solid fa-triangle-exclamation text-yellow-400";
+            } else {
+                icon.className = "fa-solid fa-circle-info text-amber-400";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initialize Page
+        window.onload = function () {
+            renderProducts();
+            renderCart();
+            calculateOrderTotal();
+        }
+    </script>
+</body>
+</html>
