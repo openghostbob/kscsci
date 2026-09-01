@@ -442,7 +442,7 @@
     <script>
   
         // 請在此貼上您的 Google Apps Script Web App URL
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_MaPXYRjKdJRSgZqiH-poR3g-Q9nnp75R0vW3hS59N309IWJIsrx721lGIS5JOGbEvQ/exec'
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzU80yyZA-0Fo4s4lxda0NXgWDY0xZ_SNxxvw2RZkMre3ebuzBfhE2dTVkVN9_8XRH8-A/exec'
           // 1. Complete Product Database with Image URLs
         const products = [
             { id: 3, name: "三山龍鳳雙喜禮盒 (6入)", price: 280, spec: "6入/盒", tag: "6入", detail: "龍鳳金磚*3 + 鳳梨金磚*3", badge: "限量100盒", bag: false, isVeg: true, image: "img/3.jpg" },
@@ -709,7 +709,7 @@ ${notes}
 
             if (sendBtn) {
                 sendBtn.disabled = false;
-                sendBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>系統已發送訂單確認信件，請至信箱收訂單確認信件，請點選視窗關閉</span>`;
+                sendBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>「系統已發送確認信至您的${ordererEmail}，若未收到請檢查垃圾郵件匣。」，請點選視窗關閉</span>`;
                 sendBtn.disabled = true;
                 document.getElementById('order-info-form').reset();
                 clearCart();
