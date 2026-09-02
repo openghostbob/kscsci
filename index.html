@@ -94,7 +94,7 @@
             </div>
 
             <!-- Quick Contacts & Cart trigger button -->
-            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
+            <div class="hidden flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
                 <div class="text-right hidden md:block text-xs text-amber-100 border-r border-amber-500/50 pr-4">
                     <p><i class="fa-solid font-bold">☎</i> 訂購專線: 07-7191039</p>
                     <p><i class="fa-solid font-bold">✉</i> 信箱: sgpsci@gmail.com</p>
@@ -108,7 +108,7 @@
         </div>
     </header>
 
-    <!-- Notice Banner -->
+    <!-- Notice Banner   hidden-->
     <section class="bg-amber-50 border-b border-amber-200 py-3">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs sm:text-sm text-amber-800 flex flex-col md:flex-row items-center justify-between gap-2">
             <div class="flex items-center gap-2">
@@ -151,8 +151,8 @@
                 </div>
             </div>
 
-            <!-- Right Column: Cart Summary & Checkout Form (5 cols on large screens) -->
-            <div class="lg:col-span-5 space-y-6" id="cart-section">
+            <!-- xxxxxxxxxxxxxxxx -->
+            <div class="hidden lg:col-span-5 space-y-6" id="cart-section">
                 <div class="bg-white rounded-2xl shadow-xl border border-amber-100 p-5 sticky top-24">
 
                     <!-- Cart Header -->
@@ -329,8 +329,61 @@
                     </form>
                 </div>
             </div>
+            <div class="lg:col-span-5 space-y-6" id="cart-section">
+                <!-- 暫停接單公告卡片 -->
+                <div class="bg-amber-50/60 border border-amber-200 rounded-2xl p-6 shadow-sm">
 
+                    <!-- 卡片標題區 -->
+                    <div class="border-b border-amber-200/80 pb-4 mb-4 text-center">
+                        <span class="inline-block bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-2 tracking-wide">
+                            公告
+                        </span>
+                        <h2 class="text-xl font-bold text-amber-900 tracking-wide leading-snug">
+                            感謝大家熱烈支持！訂單已額滿，暫停接單通知 🙇‍♂️
+                        </h2>
+                    </div>
+
+                    <!-- 內文說明 -->
+                    <div class="space-y-3 text-gray-700 text-sm leading-relaxed">
+                        <p class="font-medium text-gray-800">
+                            親愛的夥伴 / 顧客您好：
+                        </p>
+                        <p>
+                            非常感謝大家對<strong class="text-amber-800 font-semibold">三山烘焙坊</strong>的支持與愛護！由於近日訂購情況極為踴躍，已大幅超出我們的每日手工產能。
+                        </p>
+                        <p class="bg-amber-100/70 text-amber-900 p-3 rounded-lg text-xs md:text-sm font-medium border-l-4 border-amber-500">
+                            ⚠️ 為確保每一份產品的品質與口感，我們決定<strong>即日起暫停接收新訂單</strong>。
+                        </p>
+                    </div>
+
+                    <!-- 情況說明卡片清單 -->
+                    <div class="mt-5 space-y-2.5">
+                        <div class="bg-white/80 p-3.5 rounded-xl border border-amber-100 flex items-start gap-3 shadow-xs">
+                            <span class="text-base flex-shrink-0">📍</span>
+                            <div class="text-xs md:text-sm leading-snug">
+                                <span class="font-bold text-gray-900">已下單的顧客：</span>
+                                <span class="text-gray-600">我們正全力按訂單順序排單製作中，出貨時間若有微調，我們將會主動聯繫您。</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/80 p-3.5 rounded-xl border border-amber-100 flex items-start gap-3 shadow-xs">
+                            <span class="text-base flex-shrink-0">📍</span>
+                            <div class="text-xs md:text-sm leading-snug">
+                                <span class="font-bold text-gray-900">尚未下單的顧客：</span>
+                                <span class="text-gray-600">待目前訂單消化完畢後，我們會第一時間於社團公告重新開放接單時間。</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 結尾感謝 -->
+                    <div class="mt-6 pt-4 border-t border-amber-200/60 text-center text-xs md:text-sm font-medium text-amber-800">
+                        造成不便，敬請見諒，再次感謝大家的體諒與支持！❤️
+                    </div>
+
+                </div>
+            </div>
         </div>
+
     </main>
 
     <!-- Bank Details & Association Info Footer -->
@@ -440,10 +493,10 @@
     </div>
 
     <script>
-  
+
         // 請在此貼上您的 Google Apps Script Web App URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOZozRj7x_bTWVWD0n7rWJON90iSDeIihV01rrRfuuDnncIzHVc4iAqKszwjjHknC5ow/exec'
-          // 1. Complete Product Database with Image URLs
+        // 1. Complete Product Database with Image URLs
         const products = [
             { id: 3, name: "三山龍鳳雙喜禮盒 (6入)", price: 280, spec: "6入/盒", tag: "6入", detail: "龍鳳金磚*3 + 鳳梨金磚*3", badge: "限量100盒", bag: false, isVeg: true, image: "img/3.jpg" },
             { id: 4, name: "三山龍鳳金磚禮盒 (8入)", price: 400, spec: "8入/盒", tag: "8入", detail: "龍鳳金磚*8", bag: true, isVeg: true, image: "img/4.jpg" },
@@ -472,44 +525,44 @@
             container.innerHTML = filteredProducts.map(p => {
                 const qty = cart[p.id] || 0;
                 return `
-                                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition group">
-                                    <div>
-                                        <div class="relative overflow-hidden rounded-xl bg-amber-50 mb-3 aspect-video flex items-center justify-center cursor-pointer" onclick="openImageModal('${p.image}', '${p.name}')">
-                                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://placehold.co/400x300/f59e0b/ffffff?text=${encodeURIComponent(p.name)}';">
-                                            ${p.badge ? `<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">${p.badge}</span>` : ''}
-                                            <span class="absolute bottom-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] px-2 py-0.5 rounded flex items-center gap-1">
-                                                <i class="fa-solid fa-magnifying-glass-plus"></i> 看大圖
-                                            </span>
+                                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition group">
+                                            <div>
+                                                <div class="relative overflow-hidden rounded-xl bg-amber-50 mb-3 aspect-video flex items-center justify-center cursor-pointer" onclick="openImageModal('${p.image}', '${p.name}')">
+                                                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://placehold.co/400x300/f59e0b/ffffff?text=${encodeURIComponent(p.name)}';">
+                                                    ${p.badge ? `<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">${p.badge}</span>` : ''}
+                                                    <span class="absolute bottom-2 right-2 bg-black/60 backdrop-blur text-white text-[10px] px-2 py-0.5 rounded flex items-center gap-1">
+                                                        <i class="fa-solid fa-magnifying-glass-plus"></i> 看大圖
+                                                    </span>
+                                                </div>
+                                                <div class="flex items-start justify-between gap-2 mb-1">
+                                                    <h3 class="font-bold text-gray-800 text-sm leading-snug">${p.name}</h3>
+                                                </div>
+                                                <p class="text-xs text-gray-500 mb-2 leading-relaxed">${p.detail}</p>
+                                                <div class="flex flex-wrap gap-1 mb-3">
+                                                    ${p.bag ? `<span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded"><i class="fa-solid fa-bag-shopping"></i> 附提袋</span>` : `<span class="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">小禮盒裝</span>`}
+                                                    ${p.isVeg ? `<span class="text-[10px] bg-green-100 text-green-800 px-1.5 py-0.5 rounded"><i class="fa-solid fa-leaf"></i> 蛋奶素</span>` : ''}
+                                                    <span class="text-[10px] bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded">${p.spec}</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between pt-2 border-t border-gray-100 mt-1">
+                                                <div>
+                                                    <span class="text-xs text-gray-400">售價</span>
+                                                    <span class="text-lg font-bold text-red-600 ml-1">NT$ ${p.price}</span>
+                                                </div>
+                                                <div class="flex items-center gap-1.5">
+                                                    ${qty > 0 ? `
+                                                        <button onclick="updateQty(${p.id}, -1)" class="w-7 h-7 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold flex items-center justify-center transition">-</button>
+                                                        <span class="w-6 text-center text-sm font-bold text-amber-900">${qty}</span>
+                                                        <button onclick="updateQty(${p.id}, 1)" class="w-7 h-7 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-bold flex items-center justify-center transition">+</button>
+                                                    ` : `
+                                                        <button onclick="updateQty(${p.id}, 1)" class="bg-amber-600 hover:bg-amber-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium shadow-sm transition flex items-center gap-1">
+                                                            <i class="fa-solid fa-cart-plus"></i> 加入購物車
+                                                        </button>
+                                                    `}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="flex items-start justify-between gap-2 mb-1">
-                                            <h3 class="font-bold text-gray-800 text-sm leading-snug">${p.name}</h3>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mb-2 leading-relaxed">${p.detail}</p>
-                                        <div class="flex flex-wrap gap-1 mb-3">
-                                            ${p.bag ? `<span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded"><i class="fa-solid fa-bag-shopping"></i> 附提袋</span>` : `<span class="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">小禮盒裝</span>`}
-                                            ${p.isVeg ? `<span class="text-[10px] bg-green-100 text-green-800 px-1.5 py-0.5 rounded"><i class="fa-solid fa-leaf"></i> 蛋奶素</span>` : ''}
-                                            <span class="text-[10px] bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded">${p.spec}</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 mt-1">
-                                        <div>
-                                            <span class="text-xs text-gray-400">售價</span>
-                                            <span class="text-lg font-bold text-red-600 ml-1">NT$ ${p.price}</span>
-                                        </div>
-                                        <div class="flex items-center gap-1.5">
-                                            ${qty > 0 ? `
-                                                <button onclick="updateQty(${p.id}, -1)" class="w-7 h-7 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold flex items-center justify-center transition">-</button>
-                                                <span class="w-6 text-center text-sm font-bold text-amber-900">${qty}</span>
-                                                <button onclick="updateQty(${p.id}, 1)" class="w-7 h-7 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-bold flex items-center justify-center transition">+</button>
-                                            ` : `
-                                                <button onclick="updateQty(${p.id}, 1)" class="bg-amber-600 hover:bg-amber-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium shadow-sm transition flex items-center gap-1">
-                                                    <i class="fa-solid fa-cart-plus"></i> 加入購物車
-                                                </button>
-                                            `}
-                                        </div>
-                                    </div>
-                                </div>
-                                `;
+                                        `;
             }).join('');
         }
 
@@ -536,7 +589,7 @@
 
                 if (sheetBox) sheetBox.className = "p-2.5 rounded-xl border flex items-center gap-2 bg-green-50 border-green-200 text-green-800";
                 if (sheetIcon) sheetIcon.className = "fa-solid fa-circle-check text-green-600";
-                 return true;
+                return true;
             } catch (err) {
                 console.error("Google Sheet Sync Error:", err);
                 if (sheetBox) sheetBox.className = "p-2.5 rounded-xl border flex items-center gap-2 bg-red-50 border-red-200 text-red-800";
@@ -704,7 +757,7 @@ ${notes}
 
             // 執行紀錄至 Google 試算表與發送 Slack 通知
             await recordToGoogleSheet(pendingOrderData);
- 
+
 
 
             if (sendBtn) {
@@ -768,12 +821,12 @@ ${notes}
 
             if (keys.length === 0) {
                 cartContainer.innerHTML = `
-                                        <div id="empty-cart-msg" class="text-center py-8 text-gray-400">
-                                            <i class="fa-solid fa-cart-flatbed text-4xl mb-2 text-gray-300"></i>
-                                            <p>尚未選擇任何商品</p>
-                                            <p class="text-xs text-gray-400">請從左側目錄點擊「+」加入商品</p>
-                                        </div>
-                                    `;
+                                                <div id="empty-cart-msg" class="text-center py-8 text-gray-400">
+                                                    <i class="fa-solid fa-cart-flatbed text-4xl mb-2 text-gray-300"></i>
+                                                    <p>尚未選擇任何商品</p>
+                                                    <p class="text-xs text-gray-400">請從左側目錄點擊「+」加入商品</p>
+                                                </div>
+                                            `;
                 return;
             }
 
@@ -787,18 +840,18 @@ ${notes}
                 const div = document.createElement('div');
                 div.className = "flex justify-between items-center py-2";
                 div.innerHTML = `
-                                        <div class="pr-2">
-                                            <p class="font-bold text-gray-800 text-xs">${item.name}</p>
-                                            <p class="text-[11px] text-gray-500">NT$ ${item.price} × ${qty}</p>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <span class="font-bold text-amber-800 text-xs">NT$ ${itemTotal}</span>
-                                            <div class="flex items-center space-x-1">
-                                                <button onclick="updateQty(${id}, -1)" class="w-5 h-5 bg-gray-200 hover:bg-gray-300 rounded text-xs text-gray-700">-</button>
-                                                <button onclick="updateQty(${id}, 1)" class="w-5 h-5 bg-amber-600 hover:bg-amber-700 rounded text-xs text-white">+</button>
-                                            </div>
-                                        </div>
-                                    `;
+                                                <div class="pr-2">
+                                                    <p class="font-bold text-gray-800 text-xs">${item.name}</p>
+                                                    <p class="text-[11px] text-gray-500">NT$ ${item.price} × ${qty}</p>
+                                                </div>
+                                                <div class="flex items-center gap-3">
+                                                    <span class="font-bold text-amber-800 text-xs">NT$ ${itemTotal}</span>
+                                                    <div class="flex items-center space-x-1">
+                                                        <button onclick="updateQty(${id}, -1)" class="w-5 h-5 bg-gray-200 hover:bg-gray-300 rounded text-xs text-gray-700">-</button>
+                                                        <button onclick="updateQty(${id}, 1)" class="w-5 h-5 bg-amber-600 hover:bg-amber-700 rounded text-xs text-white">+</button>
+                                                    </div>
+                                                </div>
+                                            `;
                 cartContainer.appendChild(div);
             });
         }
