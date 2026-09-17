@@ -152,7 +152,7 @@
             </div>
 
             <!-- xxxxxxxxxxxxxxxx -->
-            <div class="hidden lg:col-span-5 space-y-6" id="cart-section">
+            <div class="lg:col-span-5 space-y-6" id="cart-section">
                 <div class="bg-white rounded-2xl shadow-xl border border-amber-100 p-5 sticky top-24">
 
                     <!-- Cart Header -->
@@ -324,27 +324,27 @@
                         <!-- Action Button -->
                         <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 text-base">
                             <i class="fa-solid fa-paper-plane"></i>
-                            <span>預覽並送出訂單</span>
+                            <span>預覽並送出訂單，最終結單日9/22日</span>
                         </button>
                     </form>
                 </div>
             </div>
-            <div class="lg:col-span-5 space-y-6" id="cart-section">
+            <!--<div class="lg:col-span-5 space-y-6" id="cart-section">-->
                 <!-- 暫停接單公告卡片 -->
-                <div class="bg-amber-50/60 border border-amber-200 rounded-2xl p-6 shadow-sm">
+                <!--<div class="bg-amber-50/60 border border-amber-200 rounded-2xl p-6 shadow-sm">-->
 
                     <!-- 卡片標題區 -->
-                    <div class="border-b border-amber-200/80 pb-4 mb-4 text-center">
+                    <!--<div class="border-b border-amber-200/80 pb-4 mb-4 text-center">
                         <span class="inline-block bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-2 tracking-wide">
                             公告
                         </span>
                         <h2 class="text-xl font-bold text-amber-900 tracking-wide leading-snug">
                             感謝大家熱烈支持！訂單已額滿，暫停接單通知 🙇‍♂️
                         </h2>
-                    </div>
+                    </div>-->
 
                     <!-- 內文說明 -->
-                    <div class="space-y-3 text-gray-700 text-sm leading-relaxed">
+                    <!--<div class="space-y-3 text-gray-700 text-sm leading-relaxed">
                         <p class="font-medium text-gray-800">
                             親愛的夥伴 / 顧客您好：
                         </p>
@@ -354,10 +354,10 @@
                         <p class="bg-amber-100/70 text-amber-900 p-3 rounded-lg text-xs md:text-sm font-medium border-l-4 border-amber-500">
                             ⚠️ 為確保每一份產品的品質與口感，我們決定<strong>即日起暫停接收新訂單</strong>。
                         </p>
-                    </div>
+                    </div>-->
 
                     <!-- 情況說明卡片清單 -->
-                    <div class="mt-5 space-y-2.5">
+                    <!--<div class="mt-5 space-y-2.5">
                         <div class="bg-white/80 p-3.5 rounded-xl border border-amber-100 flex items-start gap-3 shadow-xs">
                             <span class="text-base flex-shrink-0">📍</span>
                             <div class="text-xs md:text-sm leading-snug">
@@ -373,15 +373,15 @@
                                 <span class="text-gray-600">待目前訂單消化完畢後，我們會第一時間於社團公告重新開放接單時間。</span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <!-- 結尾感謝 -->
-                    <div class="mt-6 pt-4 border-t border-amber-200/60 text-center text-xs md:text-sm font-medium text-amber-800">
+                    <!--<div class="mt-6 pt-4 border-t border-amber-200/60 text-center text-xs md:text-sm font-medium text-amber-800">
                         造成不便，敬請見諒，再次感謝大家的體諒與支持！❤️
                     </div>
 
                 </div>
-            </div>
+            </div>-->
         </div>
 
     </main>
@@ -495,7 +495,7 @@
     <script>
 
         // 請在此貼上您的 Google Apps Script Web App URL
-       // const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOZozRj7x_bTWVWD0n7rWJON90iSDeIihV01rrRfuuDnncIzHVc4iAqKszwjjHknC5ow/exec'
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqvZAaNqrr0wYIJBWk0lLwz-0GLC3_z1THD4kZOGLr90zRfwte19Q_PhY411mmbY4hfg/exec'
         // 1. Complete Product Database with Image URLs
         const products = [
             { id: 3, name: "三山龍鳳雙喜禮盒 (6入)", price: 280, spec: "6入/盒", tag: "6入", detail: "龍鳳金磚*3 + 鳳梨金磚*3", badge: "限量100盒", bag: false, isVeg: true, image: "img/3.jpg" },
